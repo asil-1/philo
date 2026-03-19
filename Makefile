@@ -19,6 +19,7 @@ SRC_DIR = src/
 SRC=main.c \
 	muthread.c \
 	philo_life.c \
+	print.c \
 	utils.c
 
 #OBJ___________________________

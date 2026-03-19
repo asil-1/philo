@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 15:27:33 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/13 18:00:31 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:21:50 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	create_mutex(t_ctx *ctx, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		if (pthread_mutex_init(ctx->fork + i, NULL) != 0)
+		if (pthread_mutex_init(&ctx->fork[i], NULL) != 0)
 		{
-			print_error("Create mutex failed");
+			print_error("Create fork mutex failed");
 			destroy_mutex(ctx, i);
 			return (1);
 		}
@@ -54,12 +54,12 @@ void	destroy_mutex(t_ctx *ctx, int mutex_to_destroy)
 	free(ctx->fork);
 }
 
-int	create_thread(t_ctx *ctx, int nb_philo)
+int	create_thread(t_philo **philo, t_ctx *ctx, int nb_philo)
 {
 	int	i;
 
-	ctx->philo = malloc(sizeof(t_philo) * nb_philo);
-	if (!ctx->philo)
+	*philo = malloc(sizeof(t_philo) * nb_philo);
+	if (!*philo)
 	{
 		print_error("Malloc failed (create_thread)");
 		return (1);
@@ -67,10 +67,13 @@ int	create_thread(t_ctx *ctx, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		if (pthread_create(&(ctx->philo + i)->thread, NULL, routine, ctx) != 0)
+		(*philo)[i].id = i;
+		(*philo)[i].ctx = ctx;
+		if (pthread_create
+			(&(*philo)[i].thread, NULL, routine, &(*philo)[i]) != 0)
 		{
 			print_error("Create thread failed");
-			wait_thread(ctx, i);
+			wait_thread(*philo, i);
 			return (1);
 		}
 		++i;
@@ -78,15 +81,15 @@ int	create_thread(t_ctx *ctx, int nb_philo)
 	return (0);
 }
 
-void	wait_thread(t_ctx *ctx, int nb_philo)
+void	wait_thread(t_philo *philo, int nb_philo)
 {
 	int	i;
 
 	i = 0;
 	while (i < nb_philo)
 	{
-		pthread_join((ctx->philo + i)->thread, NULL);
+		pthread_join(philo[i].thread, NULL);
 		++i;
 	}
-	free(ctx->philo);
+	free(philo);
 }

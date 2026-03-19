@@ -6,30 +6,61 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/13 18:00:15 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/19 14:21:16 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	*routine(void *arg)
+void	even_eat(t_philo *philo)
 {
-	t_ctx		*ctx;
-
-	ctx = (t_ctx *)arg;
-	ctx->philo->thread = pthread_self();
-	pthread_mutex_lock(&ctx->m_print);
-	printf("i:%s%d%s thread: %s%ld%s\n", GREEN, ctx->philo->n_philo, NC, CYAN, ctx->philo->thread, NC);
-	pthread_mutex_unlock(&ctx->m_print);
-	return (0);
+	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
+	print_fork(philo);
+	if (philo->id == 0)
+		pthread_mutex_lock
+			(&philo->ctx->fork[philo->ctx->rules.nb_of_philo - 1]);
+	else
+		pthread_mutex_lock(&philo->ctx->fork[philo->id - 1]);
+	print_fork(philo);
+	print_eat(philo);
+	usleep(philo->ctx->rules.time_to_eat);
+	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
+	if (philo->id == 0)
+		pthread_mutex_unlock
+			(&philo->ctx->fork[philo->ctx->rules.nb_of_philo - 1]);
+	else
+		pthread_mutex_unlock(&philo->ctx->fork[philo->id - 1]);
 }
 
-// int	philo_life(t_ctx *ctx, size_t n_philo)
-// {
-// 	if (pthread_create((ctx->philo + n_philo)->thread, NULL, routine, ctx) != 0)
-// 		return (1);
-// 	pthread_mutex_lock(&ctx->mutex.mutest);
-// 	ctx->philo.t_id = pthread_self();
-// 	pthread_mutex_unlock(&ctx->mutex.mutest);
-// 	return (ctx->philo.t_id);
-// }
+void	odd_eat(t_philo *philo)
+{
+	print_think(philo);
+	usleep(10);
+	pthread_mutex_lock(&philo->ctx->fork[philo->id - 1]);
+	print_fork(philo);
+	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
+	print_fork(philo);
+	print_eat(philo);
+	usleep(philo->ctx->rules.time_to_eat);
+	pthread_mutex_unlock(&philo->ctx->fork[philo->id - 1]);
+	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
+}
+
+void	eat(t_philo *philo)
+{
+	if (!(philo->id % 2))
+		even_eat(philo);
+	else
+		odd_eat(philo);
+}
+
+void	*routine(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	eat(philo);
+	// dormir
+		//apres avoir dormi faut penser, au moins pour les pair
+	return (arg);
+}
