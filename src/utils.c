@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:54:05 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/19 13:17:47 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/19 16:38:00 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,30 @@ static int	ft_atoi(const char *nptr)
 		nptr++;
 	}
 	return (nb * sign);
+}
+int	parcing(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
+			{
+				printf("%c\n", argv[i][j]);
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	if (ft_atoi(argv[1]) > 200)
+		return (1);
+	return (0);
 }
 
 t_rules	init_rules(char **argv)

@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/19 15:18:25 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/19 16:26:23 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	*routine(void *data);
 
 //utils.c
 size_t	ft_strlen(char *s);
+int		parcing(char **argv);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
 
