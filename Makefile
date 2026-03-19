@@ -35,6 +35,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $^ -o $@
 	@echo "link philo"
+	@echo "./philo nb_of_philo time_to_die time_to_eat time_to_sleep nb_of_meal"
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I$(HEADER)

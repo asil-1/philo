@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:32:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/19 13:43:59 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/19 15:20:55 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_ctx	ctx;
 	t_philo	*philo;
 
-	if (argc < 4 || argc > 5)
+	if (argc < 5 || argc > 6)
 		return (1);
 	memset(&ctx, 0, sizeof(t_ctx));
 	ctx.rules = init_rules(argv);

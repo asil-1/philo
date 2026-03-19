@@ -6,13 +6,13 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/19 14:21:16 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/19 16:09:13 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	even_eat(t_philo *philo)
+void	philo_even_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
 	print_fork(philo);
@@ -32,7 +32,7 @@ void	even_eat(t_philo *philo)
 		pthread_mutex_unlock(&philo->ctx->fork[philo->id - 1]);
 }
 
-void	odd_eat(t_philo *philo)
+void	philo_odd_eat(t_philo *philo)
 {
 	print_think(philo);
 	usleep(10);
@@ -46,21 +46,43 @@ void	odd_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
 }
 
-void	eat(t_philo *philo)
+void	philo_eat(t_philo *philo)
 {
 	if (!(philo->id % 2))
-		even_eat(philo);
+		philo_even_eat(philo);
 	else
-		odd_eat(philo);
+		philo_odd_eat(philo);
+}
+
+void	philo_sleep(t_philo *philo)
+{
+	print_sleep(philo);
+	usleep(philo->ctx->rules.time_to_sleep);
+	print_think(philo);
+	usleep(10);
 }
 
 void	*routine(void *arg)
 {
 	t_philo	*philo;
+	int		i;
 
 	philo = (t_philo *)arg;
-	eat(philo);
-	// dormir
-		//apres avoir dormi faut penser, au moins pour les pair
+	//tant qu epersonne n'est mort -> ajouter un bool die dans ctx, quand quelqu'un l'actionne c'est la fin on print et on sort du programme
+	if (philo->ctx->rules.nb_of_meal)
+	{
+		i = 0;
+		while (i < philo->ctx->rules.nb_of_meal || philo->ctx->death)
+		{
+			philo_eat(philo);
+			philo_sleep(philo);
+			i++;
+		}
+	}
+	else
+	{
+		philo_eat(philo);
+		philo_sleep(philo);
+	}
 	return (arg);
 }

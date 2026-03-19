@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/19 14:20:07 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/19 15:18:25 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_rules
 typedef struct ctx
 {
 	t_rules			rules;
+	int				death;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	m_print;
 }	t_ctx;
