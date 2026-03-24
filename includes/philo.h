@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 13:37:56 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/24 16:25:00 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 typedef struct s_rules
 {
+	int	flag_meal;
 	int	nb_of_meal;
 	int	nb_of_philo;
 	int	time_to_die;
@@ -37,13 +38,15 @@ typedef struct s_rules
 	int	time_to_sleep;
 }	t_rules;
 
-typedef struct ctx
+typedef struct s_ctx
 {
 	t_rules			rules;
 	int				death;
+	int				meals;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	m_dead;
 	pthread_mutex_t	m_print;
+	pthread_mutex_t	m_meals;
 	size_t			time_start;
 }	t_ctx;
 
@@ -52,6 +55,8 @@ typedef struct s_philo
 	pthread_t	thread;
 	size_t		watch;
 	int			id;
+	int			n_meal;
+	int			deadtime;
 	t_ctx		*ctx;
 }	t_philo;
 
@@ -69,6 +74,7 @@ size_t	ft_strlen(char *s);
 int		parcing(char **argv);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
+int		all_meal(t_philo *philo);
 
 //print.c
 void	print_eat(t_philo *philo);

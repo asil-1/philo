@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:02:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 13:37:45 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/24 19:03:50 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 size_t	get_current_time(void)
 {
-	size_t	current_time;
 	struct timeval	time;
+	size_t			current_time;
 
 	if (gettimeofday(&time, NULL) < 0)
 	{
@@ -29,11 +29,11 @@ size_t	get_current_time(void)
 /** @param time in milliseconds*/
 void	ft_usleep(size_t time)
 {
-	size_t t_start;
+	size_t	t_start;
 
 	t_start = get_current_time();
 	if (t_start < 0)
-		(void)time; //faire un truc de cette erreur
+		(void)time; /** @todo error management */
 	while ((get_current_time() - t_start) < time)
 		usleep(10);
 }
@@ -42,6 +42,6 @@ void	the_time(t_philo *philo)
 {
 	size_t	time;
 
-	time = get_current_time() - philo->ctx->time_start;
+	time = (get_current_time() - philo->ctx->time_start);
 	philo->watch = time;
 }

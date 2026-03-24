@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 15:27:33 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 13:14:35 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/24 18:52:27 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ int	create_thread(t_philo **philo, t_ctx *ctx, int nb_philo)
 	{
 		(*philo)[i].id = i;
 		(*philo)[i].ctx = ctx;
+		(*philo)[i].n_meal = 0;
+		(*philo)[i].deadtime = 0;
 		if (pthread_create
-			(&(*philo)[i].thread, NULL, routine, &(*philo)[i]) != 0)
+			(&(*philo)[i].thread, NULL, routine, (*philo) + i) != 0)
 		{
 			print_error("Create thread failed");
 			wait_thread(*philo, i);

@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 13:26:19 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/24 18:53:07 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ void	philo_even_eat(t_philo *philo)
 	else
 		pthread_mutex_lock(&philo->ctx->fork[philo->id - 1]);
 	print_fork(philo);
+	if (philo->deadtime > philo->ctx->rules.time_to_die)
+	{
+		print_death(philo);
+		philo->ctx->death++;
+		return ;
+	}
 	print_eat(philo);
+	philo->n_meal++;
 	ft_usleep(philo->ctx->rules.time_to_eat);
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
 	if (philo->id == 0)
@@ -40,7 +47,14 @@ void	philo_odd_eat(t_philo *philo)
 	print_fork(philo);
 	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
 	print_fork(philo);
+	if (philo->deadtime > philo->ctx->rules.time_to_die)
+	{
+		print_death(philo);
+		philo->ctx->death++;
+		return ;
+	}
 	print_eat(philo);
+	philo->n_meal++;
 	ft_usleep(philo->ctx->rules.time_to_eat);
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id - 1]);
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
@@ -58,29 +72,28 @@ void	philo_sleep(t_philo *philo)
 {
 	print_sleep(philo);
 	ft_usleep(philo->ctx->rules.time_to_sleep);
-	print_think(philo); //attention les philo impairs pensent deux fois, a voir si ça pose un pblm
+	print_think(philo);
 	usleep(10);
 }
 
 void	*routine(void *arg)
 {
 	t_philo	*philo;
-	int		i;
 
 	philo = (t_philo *)arg;
-	// tant qu epersonne n'est mort -> ajouter un bool die dans ctx, quand quelqu'un l'actionne c'est la fin on print et on sort du programme
-	if (philo->ctx->rules.nb_of_meal)
+	while (philo->ctx->death < 1)
 	{
-		i = 0;
-		while (i < philo->ctx->rules.nb_of_meal && philo->ctx->death < 1)
+		if (philo->ctx->rules.flag_meal == 1)
 		{
-			philo_eat(philo);
-			philo_sleep(philo);
-			i++;
+			if (all_meal(philo) == 1)
+				return (arg);
 		}
-	}
-	else
-	{
+		if (philo->deadtime > philo->ctx->rules.time_to_die)
+		{
+			print_death(philo);
+			philo->ctx->death++;
+			return (arg);
+		}
 		philo_eat(philo);
 		philo_sleep(philo);
 	}
