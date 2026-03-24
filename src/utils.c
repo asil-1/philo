@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:54:05 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/19 16:38:00 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/24 11:53:03 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ size_t	ft_strlen(char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
-
-void	print_error(char *msg)
-{
-	write(2, msg, ft_strlen(msg));
-	write(2, "\n", 1);
 }
 
 static int	ft_atoi(const char *nptr)

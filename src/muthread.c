@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 15:27:33 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/19 14:21:50 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/24 13:14:35 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,16 @@ int	create_mutex(t_ctx *ctx, int nb_philo)
 	return (0);
 }
 
-void	destroy_mutex(t_ctx *ctx, int mutex_to_destroy)
+void	destroy_mutex(t_ctx *ctx, int nb_of_philo)
 {
 	int	i;
 
 	i = 0;
-	while (i < mutex_to_destroy)
+	pthread_mutex_destroy(&ctx->m_print);
+	pthread_mutex_destroy(&ctx->m_dead);
+	while (i < nb_of_philo)
 	{
-		pthread_mutex_destroy(ctx->fork + i);
+		pthread_mutex_destroy(&ctx->fork[i]);
 		++i;
 	}
 	free(ctx->fork);

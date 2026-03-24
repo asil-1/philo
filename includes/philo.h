@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/19 16:26:23 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/24 13:37:56 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
 
 typedef struct s_rules
 {
@@ -41,12 +42,15 @@ typedef struct ctx
 	t_rules			rules;
 	int				death;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	m_dead;
 	pthread_mutex_t	m_print;
+	size_t			time_start;
 }	t_ctx;
 
 typedef struct s_philo
 {
 	pthread_t	thread;
+	size_t		watch;
 	int			id;
 	t_ctx		*ctx;
 }	t_philo;
@@ -72,5 +76,10 @@ void	print_fork(t_philo *philo);
 void	print_sleep(t_philo *philo);
 void	print_think(t_philo *philo);
 void	print_death(t_philo *philo);
+
+//time.c
+size_t	get_current_time(void);
+void	ft_usleep(size_t time);
+void	the_time(t_philo *philo);
 
 #endif

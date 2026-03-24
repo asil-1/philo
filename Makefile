@@ -20,7 +20,9 @@ SRC=main.c \
 	muthread.c \
 	philo_life.c \
 	print.c \
-	utils.c
+	utils.c \
+	error_mngmt.c \
+	time.c
 
 #OBJ___________________________
 
