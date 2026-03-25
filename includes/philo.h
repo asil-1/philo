@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 16:25:00 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:36:37 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ typedef struct s_rules
 
 typedef struct s_ctx
 {
+	int				flag_death;
+	int				fprint_death;
 	t_rules			rules;
-	int				death;
 	int				meals;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	m_dead;
@@ -56,7 +57,7 @@ typedef struct s_philo
 	size_t		watch;
 	int			id;
 	int			n_meal;
-	int			deadtime;
+	size_t		last_timeal;
 	t_ctx		*ctx;
 }	t_philo;
 
@@ -86,6 +87,7 @@ void	print_death(t_philo *philo);
 //time.c
 size_t	get_current_time(void);
 void	ft_usleep(size_t time);
+int		is_dead(t_philo *philo);
 void	the_time(t_philo *philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:54:05 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 19:01:47 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:27:13 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_rules	init_rules(char **argv)
 {
 	t_rules	rules;
 
+	rules.flag_meal = 0;
 	rules.nb_of_philo = ft_atoi(argv[1]);
 	rules.time_to_die = ft_atoi(argv[2]);
 	rules.time_to_eat = ft_atoi(argv[3]);

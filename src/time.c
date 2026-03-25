@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:02:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 19:03:50 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/25 14:34:47 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,23 @@ void	the_time(t_philo *philo)
 
 	time = (get_current_time() - philo->ctx->time_start);
 	philo->watch = time;
+}
+
+int	is_dead(t_philo *philo)
+{
+	size_t	deadtime;
+	size_t	time_since_last_meal;
+
+	deadtime = (size_t)philo->ctx->rules.time_to_die;
+	if (philo->n_meal == 0)
+		time_since_last_meal = get_current_time() - philo->ctx->time_start;
+	else
+		time_since_last_meal = get_current_time() - philo->last_timeal;
+	if (time_since_last_meal > deadtime)
+	{
+		philo->ctx->flag_death++;
+		print_death(philo);
+		return (1);
+	}
+	return (0);
 }
