@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 18:53:07 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/25 09:39:55 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	philo_even_eat(t_philo *philo)
 		return ;
 	}
 	print_eat(philo);
-	philo->n_meal++;
 	ft_usleep(philo->ctx->rules.time_to_eat);
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
 	if (philo->id == 0)
@@ -54,7 +53,6 @@ void	philo_odd_eat(t_philo *philo)
 		return ;
 	}
 	print_eat(philo);
-	philo->n_meal++;
 	ft_usleep(philo->ctx->rules.time_to_eat);
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id - 1]);
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
@@ -66,6 +64,7 @@ void	philo_eat(t_philo *philo)
 		philo_even_eat(philo);
 	else
 		philo_odd_eat(philo);
+	philo->n_meal++;
 }
 
 void	philo_sleep(t_philo *philo)

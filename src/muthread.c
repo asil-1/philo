@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 15:27:33 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/24 18:52:27 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/25 09:41:25 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	destroy_mutex(t_ctx *ctx, int nb_of_philo)
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&ctx->m_print);
-	pthread_mutex_destroy(&ctx->m_dead);
 	while (i < nb_of_philo)
 	{
 		pthread_mutex_destroy(&ctx->fork[i]);
