@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/25 14:36:37 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/25 15:31:18 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	print_death(t_philo *philo);
 
 //time.c
 size_t	get_current_time(void);
-void	ft_usleep(size_t time);
 int		is_dead(t_philo *philo);
 void	the_time(t_philo *philo);
+void	ft_usleep(size_t time, t_ctx *ctx);
 
 #endif

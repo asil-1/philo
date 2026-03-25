@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/25 15:22:56 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/25 15:32:05 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	philo_even_eat(t_philo *philo)
 		print_fork(philo);
 		print_eat(philo);
 		philo->last_timeal = get_current_time();
-		ft_usleep(philo->ctx->rules.time_to_eat);
+		ft_usleep(philo->ctx->rules.time_to_eat, philo->ctx);
 	}
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
 	pthread_mutex_unlock(&philo->ctx->fork[left_fork]);
@@ -43,7 +43,7 @@ void	philo_odd_eat(t_philo *philo)
 	if (is_dead(philo) == 1 || philo->ctx->flag_death >= 1)
 		return ;
 	print_think(philo);
-	ft_usleep(10);
+	ft_usleep(10, philo->ctx);
 	if (is_dead(philo) == 1 || philo->ctx->flag_death >= 1)
 		return ;
 	pthread_mutex_lock(&philo->ctx->fork[philo->id - 1]);
@@ -59,7 +59,7 @@ void	philo_odd_eat(t_philo *philo)
 		print_fork(philo);
 		print_eat(philo);
 		philo->last_timeal = get_current_time();
-		ft_usleep(philo->ctx->rules.time_to_eat);
+		ft_usleep(philo->ctx->rules.time_to_eat, philo->ctx);
 	}
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id - 1]);
 	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
@@ -76,13 +76,13 @@ void	philo_eat(t_philo *philo)
 void	philo_sleep(t_philo *philo)
 {
 	print_sleep(philo);
-	ft_usleep(philo->ctx->rules.time_to_sleep);
+	ft_usleep(philo->ctx->rules.time_to_sleep, philo->ctx);
 	if (philo->ctx->flag_death > 0)
 		return ;
 	if (!(philo->id % 2))
 	{
 		print_think(philo);
-		ft_usleep(10);
+		ft_usleep(10, philo->ctx);
 	}
 }
 
