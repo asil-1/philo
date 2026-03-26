@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/25 15:32:05 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 11:04:22 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	philo_even_eat(t_philo *philo)
 	if (philo->id == 0)
 		left_fork = philo->ctx->rules.nb_of_philo - 1;
 	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
-	if (is_dead(philo) == 1 || philo->ctx->flag_death >= 1)
+	if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
 	{
 		pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
 		return ;
 	}
 	print_fork(philo);
 	pthread_mutex_lock(&philo->ctx->fork[left_fork]);
-	if (is_dead(philo) == 0 || philo->ctx->flag_death == 0)
+	if (is_dead(philo) == 0 || someone_dead(philo->ctx) == 0)
 	{
 		print_fork(philo);
 		print_eat(philo);
@@ -40,21 +40,21 @@ void	philo_even_eat(t_philo *philo)
 
 void	philo_odd_eat(t_philo *philo)
 {
-	if (is_dead(philo) == 1 || philo->ctx->flag_death >= 1)
+	if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
 		return ;
 	print_think(philo);
 	ft_usleep(10, philo->ctx);
-	if (is_dead(philo) == 1 || philo->ctx->flag_death >= 1)
+	if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
 		return ;
 	pthread_mutex_lock(&philo->ctx->fork[philo->id - 1]);
-	if (is_dead(philo) == 1 || philo->ctx->flag_death >= 1)
+	if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
 	{
 		pthread_mutex_unlock(&philo->ctx->fork[philo->id - 1]);
 		return ;
 	}
 	print_fork(philo);
 	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
-	if (is_dead(philo) == 0 || philo->ctx->flag_death == 0)
+	if (is_dead(philo) == 0 || someone_dead(philo->ctx) == 0)
 	{
 		print_fork(philo);
 		print_eat(philo);
@@ -75,12 +75,14 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
+	if (someone_dead(philo->ctx) > 0)
+		return ;
 	print_sleep(philo);
 	ft_usleep(philo->ctx->rules.time_to_sleep, philo->ctx);
-	if (philo->ctx->flag_death > 0)
-		return ;
 	if (!(philo->id % 2))
 	{
+		if (someone_dead(philo->ctx) > 0)
+			return ;
 		print_think(philo);
 		ft_usleep(10, philo->ctx);
 	}
@@ -91,7 +93,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (philo->ctx->flag_death < 1)
+	while (someone_dead(philo->ctx) < 1)
 	{
 		if (philo->ctx->rules.flag_meal == 1)
 		{
@@ -99,10 +101,8 @@ void	*routine(void *arg)
 				return (arg);
 		}
 		philo_eat(philo);
-		if (philo->ctx->flag_death > 0)
-			return (NULL);
 		philo_sleep(philo);
-		if (philo->ctx->flag_death > 0)
+		if (someone_dead(philo->ctx) > 0)
 			return (NULL);
 		is_dead(philo);
 	}

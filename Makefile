@@ -21,7 +21,7 @@ SRC=main.c \
 	philo_life.c \
 	print.c \
 	utils.c \
-	error_mngmt.c \
+	parcing.c \
 	time.c
 
 #OBJ___________________________

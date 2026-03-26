@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 15:27:33 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/25 11:13:51 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 11:07:42 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,14 @@ void	wait_thread(t_philo *philo, int nb_philo)
 		++i;
 	}
 	free(philo);
+}
+
+int	someone_dead(t_ctx *ctx)
+{
+	int	result;
+
+	pthread_mutex_lock(&ctx->m_fdead);
+	result = ctx->flag_death;
+	pthread_mutex_unlock(&ctx->m_fdead);
+	return (result);
 }

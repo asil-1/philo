@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/25 15:31:18 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 11:04:56 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_ctx
 	int				meals;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	m_dead;
+	pthread_mutex_t	m_fdead;
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_meals;
 	size_t			time_start;
@@ -61,18 +62,23 @@ typedef struct s_philo
 	t_ctx		*ctx;
 }	t_philo;
 
+
+//parcing.c
+int		ft_atoi(const char *nptr);
+int		parcing(char **argv);
+
 //muthread.c
 int		create_thread(t_philo **philo, t_ctx *ctx, int nb_philo);
 void	destroy_mutex(t_ctx *ctx, int mutex_to_destroy);
 void	wait_thread(t_philo *philo, int nb_philo);
 int		create_mutex(t_ctx *ctx, int nb_philo);
+int		someone_dead(t_ctx *ctx);
 
 //philo_life.c
 void	*routine(void *data);
 
 //utils.c
 size_t	ft_strlen(char *s);
-int		parcing(char **argv);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
 int		all_meal(t_philo *philo);

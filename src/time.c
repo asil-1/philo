@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:02:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/25 15:29:30 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 11:17:29 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ int	is_dead(t_philo *philo)
 	size_t	time_since_last_meal;
 
 	deadtime = (size_t)philo->ctx->rules.time_to_die;
-	if (philo->n_meal == 0)
-		time_since_last_meal = get_current_time() - philo->ctx->time_start;
-	else
+	if (philo->n_meal > 0)
 		time_since_last_meal = get_current_time() - philo->last_timeal;
+	else
+		time_since_last_meal = get_current_time() - philo->ctx->time_start;
 	if (time_since_last_meal > deadtime)
 	{
+		pthread_mutex_lock(&philo->ctx->m_fdead);
 		philo->ctx->flag_death++;
+		pthread_mutex_unlock(&philo->ctx->m_fdead);
 		print_death(philo);
 		return (1);
 	}
