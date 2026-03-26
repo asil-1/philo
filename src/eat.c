@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 12:02:00 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 14:47:05 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:40:30 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,7 @@ void	philo_odd_eat(t_philo *philo)
 
 void	do_we_live_to_eat_or_do_we_eat_to_live(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
-	if (is_dead(philo) == 1)
-	{
-		pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
-		return ;
-	}
 	print_fork(philo);
-	ft_usleep(philo->ctx->rules.time_to_eat, philo->ctx);
-	ft_usleep(philo->ctx->rules.time_to_die, philo->ctx);
-	pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
+	ft_usleep(philo->ctx->rules.time_to_die + 1, philo->ctx);
+	is_dead(philo);
 }
