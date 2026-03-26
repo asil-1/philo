@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:54:05 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 10:56:02 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 11:44:54 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_error(char *msg)
 {
 	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
-}	
+}
 
 t_rules	init_rules(char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 11:04:56 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 11:44:43 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_philo
 	size_t		last_timeal;
 	t_ctx		*ctx;
 }	t_philo;
-
 
 //parcing.c
 int		ft_atoi(const char *nptr);
