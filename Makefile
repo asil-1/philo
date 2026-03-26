@@ -22,7 +22,8 @@ SRC=main.c \
 	print.c \
 	utils.c \
 	parcing.c \
-	time.c
+	time.c \
+	eat.c
 
 #OBJ___________________________
 

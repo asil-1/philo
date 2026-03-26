@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 11:44:43 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 12:08:08 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,10 @@ size_t	get_current_time(void);
 int		is_dead(t_philo *philo);
 void	the_time(t_philo *philo);
 void	ft_usleep(size_t time, t_ctx *ctx);
+
+//eat.c
+void	philo_odd_eat(t_philo *philo);
+void	philo_even_eat(t_philo *philo);
+void	do_we_live_to_eat_or_do_we_eat_to_live(t_philo *philo);
 
 #endif
