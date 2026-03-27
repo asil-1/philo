@@ -1,6 +1,6 @@
 #COMPILE_______________________
 CC = cc
-CFLAGS = $(ALL_INCLUDES) -Wall -Wextra -Werror -MMD -MP -g
+CFLAGS = $(ALL_INCLUDES) -Wall -Wextra -Werror -MMD -MP
 MAKEFLAGS += --no-print-directory
 
 HEADER = philo.h
@@ -8,11 +8,15 @@ HEADER = philo.h
 NAME = philo
 
 #INCLUDES______________________
-
-INCLUDE = include/
+INCLUDE = includes/
+CFLAGS += -I$(INCLUDE)
 
 BUILD_DIR = obj/
 SRC_DIR = src/
+
+# ifdef SANITISE
+# 	CFLAGS += -fsanitize=$(SANITISE)
+# endif
 
 #SRC___________________________
 
@@ -46,15 +50,19 @@ $(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	@mkdir -p $@
 
+# bonus:
+# 	make -C philo_bonus/ make
+
 clean:
 	@rm -rf $(BUILD_DIR)
 	@echo "clean obj/"
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf philo_bonus/ $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean bonus fclean re
 
 -include $(DEPS)

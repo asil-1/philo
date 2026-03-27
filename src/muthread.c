@@ -6,11 +6,11 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 15:27:33 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 13:24:06 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 15:39:26 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include <philo.h>
 
 static int	simple_mutex(t_ctx *ctx)
 {

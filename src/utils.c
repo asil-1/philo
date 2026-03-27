@@ -6,11 +6,11 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:54:05 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 13:20:02 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 15:39:26 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include <philo.h>
 
 size_t	ft_strlen(char *s)
 {

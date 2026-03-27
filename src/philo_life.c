@@ -6,11 +6,11 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 16:14:37 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 15:39:26 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include <philo.h>
 
 void	philo_eat(t_philo *philo)
 {

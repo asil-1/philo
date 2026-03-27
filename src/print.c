@@ -6,11 +6,11 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 13:08:39 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 11:33:53 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 15:39:26 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include <philo.h>
 
 void	print_fork(t_philo *philo)
 {

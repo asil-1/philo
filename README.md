@@ -43,6 +43,8 @@ time_to_sleep nb_of_meal`
 ◦ nb_of_meal (optional argument): number of times the philosophers must eat before the simulation stops.
 If not specified, the simulation stops when a philosopher dies.
 
+warning: the specific topic that the examiner must not test more than 200 philosophy.
+
 ## Ressource
 
 thread and data race: https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/#une-situation-de-comp%C3%A9tition--le-data-race
