@@ -6,13 +6,26 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 16:01:52 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 18:18:54 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 18:34:13 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_b.h>
 
-int	create_sem(t_ctx *ctx, int nb_philo)
+static int	create_fork(t_ctx *ctx, int nb_philo)
+{
+	if (sem_init(&ctx->semfork, 0, nb_philo) < 0)
+	{
+		print_error("Create semaphore failed");
+		sem_destroy(&ctx->semprint);
+		sem_destroy(&ctx->semdeath);
+		sem_destroy(&ctx->semeals);
+		return (-1);
+	}
+	return (0);
+}
+
+int	create_sem(t_ctx *ctx)
 {
 	if (sem_init(&ctx->semprint, 0, 1) < 0)
 	{
@@ -32,14 +45,8 @@ int	create_sem(t_ctx *ctx, int nb_philo)
 		sem_destroy(&ctx->semdeath);
 		return (-1);
 	}
-	if (sem_init(&ctx->semfork, 0, nb_philo) < 0)
-	{
-		print_error("Create semaphore failed");
-		sem_destroy(&ctx->semprint);
-		sem_destroy(&ctx->semdeath);
-		sem_destroy(&ctx->semeals);
+	if (create_fork(ctx, ctx->rules.nb_of_philo) < 0)
 		return (-1);
-	}
 	return (0);
 }
 

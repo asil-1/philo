@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:41:54 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 17:10:06 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 18:34:23 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	ctx.rules = init_rules(argv);
 	philo = NULL;
 	ctx.time_start = get_current_time();
-	if (create_sem(&ctx, ctx.rules.nb_of_philo) < 0)
+	if (create_sem(&ctx) < 0)
 		return (1);
 	if (create_thread(&philo, &ctx, ctx.rules.nb_of_philo) == 0)
 		wait_thread(philo, ctx.rules.nb_of_philo);

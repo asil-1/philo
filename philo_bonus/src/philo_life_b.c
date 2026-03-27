@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 17:10:49 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 18:15:03 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 18:48:53 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,13 @@ static void	philo_sleep(t_philo *philo)
 	ft_usleep(philo->ctx->rules.time_to_sleep, philo->ctx);
 	if (someone_dead(philo->ctx) > 0)
 		return ;
-	print_think(philo);
-	ft_usleep(10, philo->ctx);
+	if (philo->id % 2)
+	{
+		if (someone_dead(philo->ctx) > 0)
+			return ;
+		print_think(philo);
+		ft_usleep(10, philo->ctx);
+	}
 }
 
 void	*routine(void *arg)
