@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 15:57:30 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 18:17:14 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 //colors
 # define DEATH_COLOR "\e[40;1;31m"
 # define HIGH_BLUE "\e[94m"
-# define PURPLE "\e[95m"
 # define CYAN "\e[96m"
 # define BLUE "\e[34m"
 # define NC "\e[0m"
@@ -29,6 +28,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <semaphore.h>
 
 typedef struct s_rules
 {
@@ -42,11 +42,15 @@ typedef struct s_rules
 
 typedef struct s_ctx
 {
-	int				flag_death;
-	int				fprint_death;
-	// int				meals;
-	size_t			time_start;
-	t_rules			rules;
+	int		flag_death;
+	int		fprint_death;
+	int		meals;
+	sem_t	semfork;
+	sem_t	semeals;
+	sem_t	semprint;
+	sem_t	semdeath;
+	size_t	time_start;
+	t_rules	rules;
 }	t_ctx;
 
 typedef struct s_philo
@@ -59,36 +63,37 @@ typedef struct s_philo
 	t_ctx		*ctx;
 }	t_philo;
 
-//parcing.c
+//parcing_b.c
 int		ft_atoi(const char *nptr);
 int		parcing(char **argv);
-
-//philo_life.c
-// void	*routine(void *data);
 
 //utils.c
 size_t	ft_strlen(char *s);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
-// int		all_meal(t_philo *philo);
-// int		someone_dead(t_ctx *ctx);
+int		all_meal(t_philo *philo);
+int		someone_dead(t_ctx *ctx);
 
-//print.c
-// void	print_eat(t_philo *philo);
-// void	print_fork(t_philo *philo);
-// void	print_sleep(t_philo *philo);
-// void	print_think(t_philo *philo);
-// void	print_death(t_philo *philo);
+//sem_thread.c
+void	destroy_sem(t_ctx *ctx);
+int		create_sem(t_ctx *ctx, int nb_philo);
+void	wait_thread(t_philo *philo, int nb_philo);
+int		create_thread(t_philo **philo, t_ctx *ctx, int nb_philo);
 
-//time.c
+//philo_life_b.c
+void	*routine(void *data);
+
+//print_b.c
+void	print_eat(t_philo *philo);
+void	print_fork(t_philo *philo);
+void	print_sleep(t_philo *philo);
+void	print_think(t_philo *philo);
+void	print_death(t_philo *philo);
+
+//time_b.c
 size_t	get_current_time(void);
-// int		is_dead(t_philo *philo);
-// void	the_time(t_philo *philo);
+int		is_dead(t_philo *philo);
+void	the_time(t_philo *philo);
 void	ft_usleep(size_t time, t_ctx *ctx);
-
-//eat.c
-// void	philo_odd_eat(t_philo *philo);
-// void	philo_even_eat(t_philo *philo);
-// void	do_we_live_to_eat_or_do_we_eat_to_live(t_philo *philo);
 
 #endif

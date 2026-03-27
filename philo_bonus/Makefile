@@ -1,7 +1,6 @@
 #COMPILE_______________________
 CC = cc
-# void si les flags "-lpthread -lrt" sont utiles
-CFLAGS = $(ALL_INCLUDES) -Wall -Wextra -Werror -lpthread -lrt -MMD -MP
+CFLAGS = $(ALL_INCLUDES) -Wall -Wextra -Werror -MMD -MP
 MAKEFLAGS += --no-print-directory
 
 HEADER = philo_b.h
@@ -18,12 +17,12 @@ SRC_DIR = src/
 #SRC___________________________
 
 SRC=main_b.c \
+	time_b.c \
 	parcing_b.c \
 	utils_b.c \
-# 	muthread.c \
-# 	philo_life.c \
-# 	print.c \
-# 	time.c \
+	sem_thread.c \
+	philo_life_b.c \
+	print_b.c \
 # 	eat.c
 
 #OBJ___________________________
