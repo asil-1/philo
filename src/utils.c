@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:54:05 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 11:44:54 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 13:20:02 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,15 @@ int	all_meal(t_philo *philo)
 	if (philo->ctx->meals >= philo->ctx->rules.nb_of_philo)
 		result = 1;
 	pthread_mutex_unlock(&philo->ctx->m_meals);
+	return (result);
+}
+
+int	someone_dead(t_ctx *ctx)
+{
+	int	result;
+
+	pthread_mutex_lock(&ctx->m_fdead);
+	result = ctx->flag_death;
+	pthread_mutex_unlock(&ctx->m_fdead);
 	return (result);
 }

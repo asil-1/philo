@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 12:06:37 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/26 16:14:37 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	philo_eat(t_philo *philo)
 {
-	if (philo->ctx->rules.nb_of_philo == 1)
-		do_we_live_to_eat_or_do_we_eat_to_live(philo);
-	if (!(philo->id % 2))
-		philo_even_eat(philo);
-	else
-		philo_odd_eat(philo);
+		if (!(philo->id % 2))
+			philo_even_eat(philo);
+		else
+			philo_odd_eat(philo);
 }
 
 void	philo_sleep(t_philo *philo)
@@ -42,6 +40,8 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->ctx->rules.nb_of_philo == 1)
+		do_we_live_to_eat_or_do_we_eat_to_live(philo);
 	while (someone_dead(philo->ctx) < 1)
 	{
 		if (philo->ctx->rules.flag_meal == 1)

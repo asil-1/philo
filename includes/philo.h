@@ -6,12 +6,14 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 12:08:08 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 15:29:46 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
+# define INT_MAX 2147483647
 
 //colors
 # define DEATH_COLOR "\e[40;1;31m"
@@ -42,14 +44,13 @@ typedef struct s_ctx
 {
 	int				flag_death;
 	int				fprint_death;
-	t_rules			rules;
 	int				meals;
 	pthread_mutex_t	*fork;
-	pthread_mutex_t	m_dead;
 	pthread_mutex_t	m_fdead;
 	pthread_mutex_t	m_print;
 	pthread_mutex_t	m_meals;
 	size_t			time_start;
+	t_rules			rules;
 }	t_ctx;
 
 typedef struct s_philo
@@ -71,7 +72,6 @@ int		create_thread(t_philo **philo, t_ctx *ctx, int nb_philo);
 void	destroy_mutex(t_ctx *ctx, int mutex_to_destroy);
 void	wait_thread(t_philo *philo, int nb_philo);
 int		create_mutex(t_ctx *ctx, int nb_philo);
-int		someone_dead(t_ctx *ctx);
 
 //philo_life.c
 void	*routine(void *data);
@@ -81,6 +81,7 @@ size_t	ft_strlen(char *s);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
 int		all_meal(t_philo *philo);
+int		someone_dead(t_ctx *ctx);
 
 //print.c
 void	print_eat(t_philo *philo);

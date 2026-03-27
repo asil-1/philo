@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 10:54:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 10:56:32 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 15:29:54 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,17 @@ int	parcing(char **argv)
 		{
 			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
 			{
-				printf("%c\n", argv[i][j]);
+				print_error("invalid argument");
 				return (1);
 			}
 			j++;
 		}
 		i++;
 	}
-	if (ft_atoi(argv[1]) > 200)
+	if (ft_atoi(argv[1]) > INT_MAX)
+	{
+		print_error("too many philosophers");
 		return (1);
+	}
 	return (0);
 }

@@ -6,17 +6,28 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 15:27:33 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/26 11:07:42 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/27 13:24:06 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+static int	simple_mutex(t_ctx *ctx)
+{
+	if (pthread_mutex_init(&ctx->m_print, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&ctx->m_fdead, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&ctx->m_meals, NULL) != 0)
+		return (1);
+	return (0);
+}
+
 int	create_mutex(t_ctx *ctx, int nb_philo)
 {
 	int	i;
 
-	if (pthread_mutex_init(&ctx->m_print, NULL) != 0)
+	if (simple_mutex(ctx) > 0)
 	{
 		print_error("Create print mutex failed");
 		return (1);
@@ -46,6 +57,9 @@ void	destroy_mutex(t_ctx *ctx, int nb_of_philo)
 	int	i;
 
 	i = 0;
+	pthread_mutex_destroy(&ctx->m_print);
+	pthread_mutex_destroy(&ctx->m_fdead);
+	pthread_mutex_destroy(&ctx->m_meals);
 	while (i < nb_of_philo)
 	{
 		pthread_mutex_destroy(&ctx->fork[i]);
@@ -93,14 +107,4 @@ void	wait_thread(t_philo *philo, int nb_philo)
 		++i;
 	}
 	free(philo);
-}
-
-int	someone_dead(t_ctx *ctx)
-{
-	int	result;
-
-	pthread_mutex_lock(&ctx->m_fdead);
-	result = ctx->flag_death;
-	pthread_mutex_unlock(&ctx->m_fdead);
-	return (result);
 }
