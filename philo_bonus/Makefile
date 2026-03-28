@@ -23,7 +23,6 @@ SRC=main_b.c \
 	sem_thread.c \
 	philo_life_b.c \
 	print_b.c \
-# 	eat.c
 
 #OBJ___________________________
 
@@ -48,11 +47,10 @@ $(OBJ_DIR):
 
 clean:
 	@rm -rf $(BUILD_DIR)
-	@echo "clean obj/"
+	@echo "clean bonus/ obj/"
 
 fclean: clean
 	rm -rf $(NAME)
-	rm -rf philo_bonus/ $(NAME)
 
 re: fclean all
 

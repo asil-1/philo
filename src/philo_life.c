@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 15:39:26 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/28 14:30:52 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	philo_eat(t_philo *philo)
 {
-		if (!(philo->id % 2))
-			philo_even_eat(philo);
-		else
-			philo_odd_eat(philo);
+	if (!(philo->id % 2))
+		philo_even_eat(philo);
+	else
+		philo_odd_eat(philo);
 }
 
 void	philo_sleep(t_philo *philo)

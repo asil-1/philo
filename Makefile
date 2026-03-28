@@ -50,8 +50,8 @@ $(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	@mkdir -p $@
 
-# bonus:
-# 	make -C philo_bonus/ make
+bonus:
+	make -C philo_bonus/ all
 
 clean:
 	@rm -rf $(BUILD_DIR)
@@ -59,9 +59,10 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
-	rm -rf philo_bonus/ $(NAME)
+	@make -C philo_bonus/ fclean
 
 re: fclean all
+	@make -C philo_bonus/ all
 
 .PHONY: all clean bonus fclean re
 
