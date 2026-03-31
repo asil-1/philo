@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 18:34:32 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/31 16:33:39 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ typedef struct s_ctx
 
 typedef struct s_philo
 {
-	pthread_t	thread;
-	size_t		watch;
-	int			id;
-	int			n_meal;
-	size_t		last_timeal;
-	t_ctx		*ctx;
+	pid_t	PID;
+	size_t	watch;
+	int		id;
+	int		n_meal;
+	size_t	last_timeal;
+	t_ctx	*ctx;
 }	t_philo;
 
 //parcing_b.c
@@ -75,7 +75,7 @@ int		all_meal(t_philo *philo);
 int		someone_dead(t_ctx *ctx);
 
 //sem_thread.c
-void	destroy_sem(t_ctx *ctx);
+void	sem_unlink(t_ctx *ctx);
 int		create_sem(t_ctx *ctx);
 void	wait_thread(t_philo *philo, int nb_philo);
 int		create_thread(t_philo **philo, t_ctx *ctx, int nb_philo);

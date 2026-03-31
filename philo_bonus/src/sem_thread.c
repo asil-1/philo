@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 16:01:52 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 18:34:13 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/03/31 16:45:30 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	create_sem(t_ctx *ctx)
 	return (0);
 }
 
-void	destroy_sem(t_ctx *ctx)
+void	sem_unlink(t_ctx *ctx) /** @todo change destroy to sem_unlink */
 {
 	sem_destroy(&ctx->semprint);
 	sem_destroy(&ctx->semfork);
@@ -58,42 +58,40 @@ void	destroy_sem(t_ctx *ctx)
 	sem_destroy(&ctx->semeals);
 }
 
-int	create_thread(t_philo **philo, t_ctx *ctx, int nb_philo)
+/** @todo changer la creation des thread par une creation de process */
+int	create_process(t_philo **philo, t_ctx *ctx, int nb_philo)
 {
 	int	i;
 
-	*philo = malloc(sizeof(t_philo) * nb_philo);
+	i = 0;
+	*philo = malloc(nb_philo * sizeof(t_philo));
 	if (!*philo)
 	{
-		print_error("Malloc failed (create_thread)");
+		print_error("Malloc failed");
 		return (-1);
 	}
-	i = 0;
 	while (i < nb_philo)
 	{
-		(*philo)[i].id = i;
-		(*philo)[i].ctx = ctx;
-		(*philo)[i].n_meal = 0;
-		if (pthread_create
-			(&(*philo)[i].thread, NULL, routine, (*philo) + i) != 0)
+		/** remplir la structure t_philo, avec leur pid(fork()), id = i, etc*/
+		pid = fork();
+		if (pid < 0)
 		{
-			print_error("Create thread failed");
-			wait_thread(*philo, i);
-			return (-1);
+			//unlink les sem
+			//noter l'erreur
+			//sortir
 		}
-		++i;
+		// routine()
 	}
-	return (0);
 }
 
-void	wait_thread(t_philo *philo, int nb_philo)
+void	wait_process(t_philo *philo, int nb_philo)
 {
 	int	i;
 
 	i = 0;
 	while (i < nb_philo)
 	{
-		pthread_join(philo[i].thread, NULL);
+		// waitpid
 		++i;
 	}
 	free(philo);
