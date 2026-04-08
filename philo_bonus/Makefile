@@ -1,9 +1,9 @@
 #COMPILE_______________________
 CC = cc
-CFLAGS = $(ALL_INCLUDES) -Wall -Wextra -Werror -MMD -MP
+CFLAGS = $(ALL_INCLUDES) -Wall -Wextra -Werror -MMD -MP -g
 MAKEFLAGS += --no-print-directory
 
-HEADER = philo_b.h
+HEADER = philo_bonus.h
 
 NAME = philo_bonus
 
@@ -16,13 +16,13 @@ SRC_DIR = src/
 
 #SRC___________________________
 
-SRC=main_b.c \
-	time_b.c \
-	parcing_b.c \
-	utils_b.c \
-	sem_thread.c \
-	philo_life_b.c \
-	print_b.c \
+SRC=main_bonus.c \
+	parcing_bonus.c \
+	utils_bonus.c \
+	semaphores.c \
+	routine.c \
+	child_management.c \
+	time.c
 
 #OBJ___________________________
 

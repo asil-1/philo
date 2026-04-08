@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_b.c                                          :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:51:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 17:46:07 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:59:14 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo_b.h>
+#include <philo_bonus.h>
 
 size_t	ft_strlen(char *s)
 {
@@ -45,26 +45,3 @@ t_rules	init_rules(char **argv)
 	return (rules);
 }
 
-int	all_meal(t_philo *philo)
-{
-	int	result;
-
-	sem_wait(&philo->ctx->semeals);
-	result = 0;
-	if (philo->n_meal == philo->ctx->rules.nb_of_meal)
-		philo->ctx->meals++;
-	if (philo->ctx->meals >= philo->ctx->rules.nb_of_philo)
-		result = 1;
-	sem_post(&philo->ctx->semeals);
-	return (result);
-}
-
-int	someone_dead(t_ctx *ctx)
-{
-	int	result;
-
-	sem_wait(&ctx->semdeath);
-	result = ctx->flag_death;
-	sem_post(&ctx->semdeath);
-	return (result);
-}

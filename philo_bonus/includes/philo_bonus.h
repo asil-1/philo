@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_b.h                                          :+:      :+:    :+:   */
+/*   philo_bonus.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/31 16:33:39 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:55:06 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_B_H
-# define PHILO_B_H
-
-# define INT_MAX 2147483647
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 //colors
 # define DEATH_COLOR "\e[40;1;31m"
@@ -25,10 +23,22 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <string.h>
+# include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <sys/wait.h>
 # include <semaphore.h>
+
+# define INT_MAX 2147483647
+# define NB_SEM 3
+
+typedef enum e_sem
+{
+	test,
+	print,
+	child
+}	t_sem;
 
 typedef struct s_rules
 {
@@ -42,26 +52,15 @@ typedef struct s_rules
 
 typedef struct s_ctx
 {
-	int		flag_death;
-	int		fprint_death;
-	int		meals;
-	sem_t	semfork;
-	sem_t	semeals;
-	sem_t	semprint;
-	sem_t	semdeath;
+	sem_t	*sem[NB_SEM];
+	int		status;
+	int		id;
+	pid_t	pid;
+	size_t	watch;
 	size_t	time_start;
+	size_t	last_timeal;
 	t_rules	rules;
 }	t_ctx;
-
-typedef struct s_philo
-{
-	pid_t	PID;
-	size_t	watch;
-	int		id;
-	int		n_meal;
-	size_t	last_timeal;
-	t_ctx	*ctx;
-}	t_philo;
 
 //parcing_b.c
 int		ft_atoi(const char *nptr);
@@ -71,29 +70,21 @@ int		parcing(char **argv);
 size_t	ft_strlen(char *s);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
-int		all_meal(t_philo *philo);
-int		someone_dead(t_ctx *ctx);
 
-//sem_thread.c
-void	sem_unlink(t_ctx *ctx);
-int		create_sem(t_ctx *ctx);
-void	wait_thread(t_philo *philo, int nb_philo);
-int		create_thread(t_philo **philo, t_ctx *ctx, int nb_philo);
+//semaphores.c
+int		open_sem(t_ctx *ctx);
+void	unlink_all_sem(void);
+void	close_sem(t_ctx *ctx, int nb);
 
-//philo_life_b.c
-void	*routine(void *data);
+//routine.c
+int		routine(t_ctx *ctx);
 
-//print_b.c
-void	print_eat(t_philo *philo);
-void	print_fork(t_philo *philo);
-void	print_sleep(t_philo *philo);
-void	print_think(t_philo *philo);
-void	print_death(t_philo *philo);
+//child_management.c
+int		child_management(t_ctx *ctx);
 
-//time_b.c
+//time.c
+size_t	the_time(t_ctx *ctx);
 size_t	get_current_time(void);
-int		is_dead(t_philo *philo);
-void	the_time(t_philo *philo);
-void	ft_usleep(size_t time, t_ctx *ctx);
+void	ft_usleep(size_t time);
 
 #endif

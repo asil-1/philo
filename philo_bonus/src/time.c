@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_b.c                                           :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/27 15:58:04 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 17:43:46 by ldepenne         ###   ########.fr       */
+/*   Created: 2026/04/08 10:52:45 by ldepenne          #+#    #+#             */
+/*   Updated: 2026/04/08 11:27:30 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo_b.h>
+#include <philo_bonus.h>
 
 size_t	get_current_time(void)
 {
@@ -27,45 +27,24 @@ size_t	get_current_time(void)
 }
 
 /** @param time in milliseconds*/
-void	ft_usleep(size_t time, t_ctx *ctx)
+void	ft_usleep(size_t time)
 {
 	size_t	t_start;
 
 	t_start = get_current_time();
 	if (t_start < 0)
 	{
-		ctx->fprint_death++;
-		ctx->flag_death++;
+		// ctx->fprint_death++; faut mourrir ici
+		// ctx->flag_death++;
 	}
 	while ((get_current_time() - t_start) < time)
 		usleep(10);
 }
 
-void	the_time(t_philo *philo)
+size_t	the_time(t_ctx *ctx)
 {
 	size_t	time;
 
-	time = (get_current_time() - philo->ctx->time_start);
-	philo->watch = time;
-}
-
-int	is_dead(t_philo *philo)
-{
-	size_t	deadtime;
-	size_t	time_since_last_meal;
-
-	deadtime = (size_t)philo->ctx->rules.time_to_die;
-	if (philo->n_meal > 0)
-		time_since_last_meal = get_current_time() - philo->last_timeal;
-	else
-		time_since_last_meal = get_current_time() - philo->ctx->time_start;
-	if (time_since_last_meal > deadtime)
-	{
-		sem_wait(&philo->ctx->semdeath);
-		philo->ctx->flag_death++;
-		sem_post(&philo->ctx->semdeath);
-		print_death(philo);
-		return (1);
-	}
-	return (0);
+	time = (get_current_time() - ctx->time_start);
+	return (time);
 }
