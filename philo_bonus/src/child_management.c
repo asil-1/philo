@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:01:24 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/08 10:21:59 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/09 17:03:36 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ static int	create_child(t_ctx *ctx)
 			close_sem(ctx, NB_SEM);
 			return (1);
 		}
-		sem_wait(ctx->sem[test]);
+		sem_wait(ctx->sem[parent]);
 		i++;
 	}
-	if (i == ctx->rules.nb_of_philo)
-		sem_post(ctx->sem[child]);
 	return (0);
 }
 
@@ -57,10 +55,9 @@ int	child_management(t_ctx *ctx)
 {
 	if (create_child(ctx) != 0)
 		return (1);
-	sem_wait(ctx->sem[child]);
-	sem_wait(ctx->sem[print]);
+	sem_wait(ctx->sem[PRINT]);
 	printf("ours\n");
-	sem_post(ctx->sem[print]);
+	sem_post(ctx->sem[PRINT]);
 	wait_child(ctx);
 	return (0);
 }

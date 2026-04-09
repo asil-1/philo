@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:41:54 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/08 10:30:19 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/08 11:41:33 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,3 @@ int	main(int argc, char **argv)
 	unlink_all_sem();
 	return (0);
 }
-
-	// if (create_sem(&ctx) < 0)
-	// 	return (1);
-	// if (create_process(&philo, &ctx, ctx.rules.nb_of_philo, status) == 0)
-	// 	wait_process(philo, ctx.rules.nb_of_philo, status);
-	// close_and_unlink(&ctx);

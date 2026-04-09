@@ -26,6 +26,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <semaphore.h>
@@ -35,9 +36,9 @@
 
 typedef enum e_sem
 {
-	test,
-	print,
-	child
+	parent,
+	PRINT,
+	DEATH
 }	t_sem;
 
 typedef struct s_rules
@@ -54,9 +55,11 @@ typedef struct s_ctx
 {
 	sem_t	*sem[NB_SEM];
 	int		status;
+	int		n_meal;
 	int		id;
 	pid_t	pid;
 	size_t	watch;
+	bool	death_flag;
 	size_t	time_start;
 	size_t	last_timeal;
 	t_rules	rules;
@@ -76,7 +79,7 @@ int		open_sem(t_ctx *ctx);
 void	unlink_all_sem(void);
 void	close_sem(t_ctx *ctx, int nb);
 
-//routine.c
+//routine_bonus.c
 int		routine(t_ctx *ctx);
 
 //child_management.c
@@ -86,5 +89,15 @@ int		child_management(t_ctx *ctx);
 size_t	the_time(t_ctx *ctx);
 size_t	get_current_time(void);
 void	ft_usleep(size_t time);
+
+//dead.c
+void	someone_dead(t_ctx *ctx);
+
+//print_bonus.c
+void	print_eat(t_ctx *ctx);
+void	print_fork(t_ctx *ctx);
+void	print_sleep(t_ctx *ctx);
+void	print_think(t_ctx *ctx);
+void	print_death(t_ctx *ctx);
 
 #endif

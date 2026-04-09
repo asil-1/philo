@@ -20,9 +20,11 @@ SRC=main_bonus.c \
 	parcing_bonus.c \
 	utils_bonus.c \
 	semaphores.c \
-	routine.c \
+	routine_bonus.c \
 	child_management.c \
-	time.c
+	time.c \
+	dead.c \
+	print_bonus.c
 
 #OBJ___________________________
 
