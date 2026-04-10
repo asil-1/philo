@@ -23,8 +23,8 @@ SRC=main_bonus.c \
 	routine_bonus.c \
 	child_management.c \
 	time.c \
-	dead.c \
-	print_bonus.c
+	print_bonus.c \
+	thread_bonus.c
 
 #OBJ___________________________
 

@@ -32,13 +32,15 @@
 # include <semaphore.h>
 
 # define INT_MAX 2147483647
-# define NB_SEM 3
+# define NB_SEM 5
 
 typedef enum e_sem
 {
 	parent,
+	DEATH,
+	MEAL,
 	PRINT,
-	DEATH
+	FORK
 }	t_sem;
 
 typedef struct s_rules
@@ -53,16 +55,18 @@ typedef struct s_rules
 
 typedef struct s_ctx
 {
-	sem_t	*sem[NB_SEM];
-	int		status;
-	int		n_meal;
-	int		id;
-	pid_t	pid;
-	size_t	watch;
-	bool	death_flag;
-	size_t	time_start;
-	size_t	last_timeal;
-	t_rules	rules;
+	sem_t		*sem[NB_SEM];
+	int			id;
+	pid_t		pid;
+	int			status;
+	size_t		time_start;
+	size_t		last_timeal;
+	size_t		watch;
+	int			n_meal;
+	int			death_flag;
+	pthread_t	thread_spy;
+	pthread_t	thread_me;
+	t_rules		rules;
 }	t_ctx;
 
 //parcing_b.c
@@ -73,14 +77,15 @@ int		parcing(char **argv);
 size_t	ft_strlen(char *s);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
+void	finish_process(t_ctx *ctx);
 
 //semaphores.c
 int		open_sem(t_ctx *ctx);
 void	unlink_all_sem(void);
-void	close_sem(t_ctx *ctx, int nb);
+void	close_sem(t_ctx *ctx);
 
 //routine_bonus.c
-int		routine(t_ctx *ctx);
+void	routine(t_ctx *ctx);
 
 //child_management.c
 int		child_management(t_ctx *ctx);
@@ -90,8 +95,8 @@ size_t	the_time(t_ctx *ctx);
 size_t	get_current_time(void);
 void	ft_usleep(size_t time);
 
-//dead.c
-void	someone_dead(t_ctx *ctx);
+//thread_bonus.c
+void	create_threads(t_ctx *ctx);
 
 //print_bonus.c
 void	print_eat(t_ctx *ctx);

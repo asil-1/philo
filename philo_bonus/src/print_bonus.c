@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 16:50:34 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/09 16:58:54 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/10 11:47:15 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ void	print_death(t_ctx *ctx)
 {
 	sem_wait(ctx->sem[PRINT]);
 	the_time(ctx);
-	// if (philo->ctx->fprint_death == 0)
 		printf("%s%zu %d died %s\n",
 			DEATH_COLOR, ctx->watch, ctx->id, NC);
-	// philo->ctx->fprint_death++;
 	sem_post(ctx->sem[PRINT]);
 }

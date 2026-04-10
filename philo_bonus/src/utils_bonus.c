@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:51:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/07 16:59:14 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:28:45 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,10 @@ t_rules	init_rules(char **argv)
 	return (rules);
 }
 
+void	finish_process(t_ctx *ctx)
+{
+	close_sem(ctx);
+	unlink_all_sem();
+	pthread_join(ctx->thread_me, NULL);
+	pthread_join(ctx->thread_spy, NULL);
+}

@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:01:24 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/09 17:03:36 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:45:02 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static int	create_child(t_ctx *ctx)
 		}
 		if (ctx->pid < 0)
 		{
-			close_sem(ctx, NB_SEM);
+			close_sem(ctx);
 			return (1);
 		}
-		sem_wait(ctx->sem[parent]);
+		// sem_wait(ctx->sem[parent]);
 		i++;
 	}
 	return (0);
