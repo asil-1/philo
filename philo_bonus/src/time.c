@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:52:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/10 10:37:37 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/10 18:02:34 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ size_t	get_current_time(void)
 }
 
 /** @param time in milliseconds*/
-void	ft_usleep(size_t time)
+void	ft_usleep(size_t time, t_ctx *ctx)
 {
 	size_t	t_start;
 
 	t_start = get_current_time();
 	if (t_start < 0)
 	{
-		// ctx->fprint_death++; faut mourrir ici
-		// ctx->flag_death++;
+		ctx->death_flag++;
+		return ;
 	}
 	while ((get_current_time() - t_start) < time)
 		usleep(10);

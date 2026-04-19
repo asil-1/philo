@@ -32,7 +32,7 @@
 # include <semaphore.h>
 
 # define INT_MAX 2147483647
-# define NB_SEM 5
+# define NB_SEM 6
 
 typedef enum e_sem
 {
@@ -40,7 +40,8 @@ typedef enum e_sem
 	DEATH,
 	MEAL,
 	PRINT,
-	FORK
+	FORK,
+	DEATH_FLAG
 }	t_sem;
 
 typedef struct s_rules
@@ -78,6 +79,7 @@ size_t	ft_strlen(char *s);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
 void	finish_process(t_ctx *ctx);
+int		view_death_status(t_ctx *ctx);
 
 //semaphores.c
 int		open_sem(t_ctx *ctx);
@@ -93,7 +95,7 @@ int		child_management(t_ctx *ctx);
 //time.c
 size_t	the_time(t_ctx *ctx);
 size_t	get_current_time(void);
-void	ft_usleep(size_t time);
+void	ft_usleep(size_t time, t_ctx *ctx);
 
 //thread_bonus.c
 void	create_threads(t_ctx *ctx);

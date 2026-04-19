@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 09:47:06 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/10 16:44:31 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/19 20:13:50 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 static int	all_meal(t_ctx *ctx)
 {
-	/* si c'est == a l'objectif alors j'incremente le semaphore
-	je verif si la taille du semaphore est == au nb de philo
-	si c'est le cas tout le monde a asser mangé, faut partir*/
 	if (ctx->n_meal == ctx->rules.nb_of_meal)
-		ctx->sem[MEAL]++;
-	printf("sem[MEAL]_size: %ld\n", ctx->sem[MEAL]->__align);
+		ctx->sem[MEAL]->__align++;
 	if (ctx->sem[MEAL]->__align == ctx->rules.nb_of_philo)
 	{
 		sem_post(ctx->sem[DEATH]);
@@ -30,11 +26,19 @@ static int	all_meal(t_ctx *ctx)
 
 static void	alone(t_ctx *ctx)
 {
+	size_t	deadtime;
+	size_t	time_since_last_meal;
+
+	deadtime = (size_t)ctx->rules.time_to_die;
 	print_fork(ctx);
 	while (1)
 	{
-		if (ctx->death_flag > 0)
+		time_since_last_meal = get_current_time() - ctx->time_start;
+		if (time_since_last_meal > deadtime)
+		{
+			print_death(ctx);
 			break ;
+		}
 	}
 }
 
@@ -43,23 +47,25 @@ static void	philo_eat(t_ctx *ctx)
 	if (!(ctx->id % 2))
 	{
 		print_think(ctx);
-		ft_usleep(10);
-		if (ctx->death_flag > 0)
+		ft_usleep(10, ctx);
+		if (view_death_status(ctx) > 0)
 			return ;
 	}
 	sem_wait(ctx->sem[FORK]);
-	if (ctx->death_flag > 0)
+	if (view_death_status(ctx) > 0)
 		return ;
 	print_fork(ctx);
 	sem_wait(ctx->sem[FORK]);
-	if (ctx->death_flag > 0)
+	if (view_death_status(ctx) > 0)
+	{
+		sem_post(ctx->sem[FORK]);
+		sem_post(ctx->sem[FORK]);
 		return ;
+	}
 	print_fork(ctx);
 	print_eat(ctx);
-	ctx->n_meal++;
-	ft_usleep(ctx->rules.time_to_eat);
-	if (ctx->death_flag > 0)
-		return ;
+	ft_usleep(ctx->rules.time_to_eat, ctx);
+	ctx->last_timeal = get_current_time();
 	sem_post(ctx->sem[FORK]);
 	sem_post(ctx->sem[FORK]);
 }
@@ -67,13 +73,13 @@ static void	philo_eat(t_ctx *ctx)
 static void	philo_sleep(t_ctx *ctx)
 {
 	print_sleep(ctx);
-	ft_usleep(ctx->rules.time_to_sleep);
-	if (ctx->death_flag > 0)
+	ft_usleep(ctx->rules.time_to_sleep, ctx);
+	if (view_death_status(ctx) > 0)
 		return ;
 	if (ctx->id % 2)
 	{
 		print_think(ctx);
-		ft_usleep(10);
+		ft_usleep(10, ctx);
 	}
 }
 
@@ -87,7 +93,7 @@ void	routine(t_ctx *ctx)
 		exit (0);
 	}
 	create_threads(ctx);
-	while (ctx->death_flag < 1)
+	while (view_death_status(ctx) < 1)
 	{
 		if (ctx->rules.flag_meal == 1)
 		{
@@ -98,44 +104,10 @@ void	routine(t_ctx *ctx)
 			}
 		}
 		philo_eat(ctx);
-		if (ctx->death_flag > 0)
+		if (view_death_status(ctx) > 0)
 			break ;
 		philo_sleep(ctx);
 	}
 	finish_process(ctx);
 	exit(0);
 }
-
-
-// int	routine(t_ctx *ctx)
-// {
-// 	// sem_wait(ctx->sem[PRINT]);
-// 	// ctx->watch = the_time(ctx);
-// 	// printf("test id: %d what time is it in my watch ? %zu\n", ctx->id, ctx->watch);
-// 	// printf("%d\n", ctx->death_flag);
-// 	// sem_post(ctx->sem[PRINT]);
-// 	someone_dead(ctx);
-// 	i_m_dead(ctx);
-// 	if (ctx->id == 2)
-// 	{
-// 		print_death(ctx);
-// 		sem_post(ctx->sem[DEATH]);
-// 	}
-// 	while (1)
-// 	{
-// 		if (ctx->death_flag > 0)
-// 		{
-// 			// sem_post(ctx->sem[parent]);
-// 			// print_death(ctx);
-// 			pthread_join(ctx->thread, NULL);
-// 			close_sem(ctx, NB_SEM);
-// 			exit (0);
-// 		}
-// 		philo_sleep(ctx);
-// 	}
-// 	printf("%d\n", ctx->death_flag);
-// 	// sem_post(ctx->sem[parent]);
-// 	close_sem(ctx, NB_SEM);
-// 	pthread_join(ctx->thread, NULL);
-// 	exit(0);
-// }

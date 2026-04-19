@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 16:57:56 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/10 16:11:01 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/19 20:16:23 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	close_sem(t_ctx *ctx)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (i < NB_SEM)
+	while (i < NB_SEM - 1)
 	{
 		sem_close(ctx->sem[i]);
 		i++;
@@ -42,8 +42,9 @@ int	open_sem(t_ctx *ctx)
 	ctx->sem[DEATH] = sem_open("death", O_CREAT | O_EXCL, 644, 0);
 	ctx->sem[MEAL] = sem_open("meal", O_CREAT | O_EXCL, 644, 0);
 	ctx->sem[PRINT] = sem_open("print", O_CREAT | O_EXCL, 644, 1);
-	ctx->sem[FORK] = sem_open("fork", O_CREAT | O_EXCL, 644, ctx->rules.nb_of_philo);
-	while (i < NB_SEM)
+	ctx->sem[FORK] = sem_open("fork", O_CREAT | O_EXCL, 644,
+			ctx->rules.nb_of_philo);
+	while (i < NB_SEM - 1)
 	{
 		if (ctx->sem[i] == SEM_FAILED)
 		{

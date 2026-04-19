@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 15:10:02 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/10 16:25:41 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/19 20:14:07 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	*view_all_process(void *arg)
 {
-	t_ctx *ctx;
+	t_ctx	*ctx;
 
 	ctx = arg;
 
 	sem_wait(ctx->sem[DEATH]);
-	sem_post(ctx->sem[DEATH]);
 	ctx->death_flag++;
+	sem_post(ctx->sem[DEATH]);
 	return (0);
 }
 
@@ -33,7 +33,7 @@ static void	*view_me(void *arg)
 	ctx = (t_ctx *)arg;
 	deadtime = (size_t)ctx->rules.time_to_die;
 
-	while (ctx->death_flag == 0)
+	while (view_death_status(ctx) == 0)
 	{
 		if (ctx->n_meal > 0)
 			time_since_last_meal = get_current_time() - ctx->last_timeal;
@@ -41,13 +41,12 @@ static void	*view_me(void *arg)
 			time_since_last_meal = get_current_time() - ctx->time_start;
 		if (time_since_last_meal > deadtime)
 		{
-			/* il est mort...
-			donc on va le dire aux autres
-			on va le dire a l'ecran
-			on va arreter le process*/
+			sem_wait(ctx->sem[PRINT]);
 			sem_post(ctx->sem[DEATH]);
-			print_death(ctx);
+			if (view_death_status(ctx) < 1)
+				print_death(ctx);
 			ctx->death_flag++;
+			sem_post(ctx->sem[PRINT]);
 		}
 	}
 	return (0);
@@ -55,18 +54,24 @@ static void	*view_me(void *arg)
 
 void	create_threads(t_ctx *ctx)
 {
+	ctx->last_timeal = get_current_time();
 	if (pthread_create(&ctx->thread_spy, NULL, view_all_process, ctx))
 	{
-		print_death(ctx);
+		sem_wait(ctx->sem[PRINT]);
+
 		sem_post(ctx->sem[DEATH]);
 		ctx->death_flag++;
+		printf("create thread_spy failed\n");
+		sem_post(ctx->sem[PRINT]);
 		return ;
 	}
 	if (pthread_create(&ctx->thread_me, NULL, view_me, ctx))
 	{
-		print_death(ctx);
+		sem_wait(ctx->sem[PRINT]);
 		sem_post(ctx->sem[DEATH]);
 		ctx->death_flag++;
+		printf("create thread_me failed\n");
+		sem_post(ctx->sem[PRINT]);
 		return ;
 	}
 }
