@@ -14,10 +14,6 @@ CFLAGS += -I$(INCLUDE)
 BUILD_DIR = obj/
 SRC_DIR = src/
 
-# ifdef SANITISE
-# 	CFLAGS += -fsanitize=$(SANITISE)
-# endif
-
 #SRC___________________________
 
 SRC=main.c \

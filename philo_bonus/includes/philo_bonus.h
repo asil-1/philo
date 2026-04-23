@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_bonus.h                                          :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/07 16:55:06 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/23 14:16:03 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,16 @@
 # include <semaphore.h>
 
 # define INT_MAX 2147483647
-# define NB_SEM 6
+# define NB_SEM 7
 
 typedef enum e_sem
 {
-	parent,
-	DEATH,
+	FORK,
 	MEAL,
 	PRINT,
-	FORK,
+	DEATH,
+	N_MEAL,
+	TIME_MEAL,
 	DEATH_FLAG
 }	t_sem;
 
@@ -79,7 +80,13 @@ size_t	ft_strlen(char *s);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
 void	finish_process(t_ctx *ctx);
+
+//data_management.c
+int		view_n_meals(t_ctx *ctx);
 int		view_death_status(t_ctx *ctx);
+void	increase_death_flag(t_ctx *ctx);
+size_t	view_last_time_meal(t_ctx *ctx);
+void	update_last_time_meal(t_ctx *ctx);
 
 //semaphores.c
 int		open_sem(t_ctx *ctx);

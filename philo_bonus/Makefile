@@ -1,6 +1,6 @@
 #COMPILE_______________________
 CC = cc
-CFLAGS = $(ALL_INCLUDES) -Wall -Wextra -Werror -MMD -MP -g
+CFLAGS = $(ALL_INCLUDES) -Wall -Wextra -Werror -MMD -MP
 MAKEFLAGS += --no-print-directory
 
 HEADER = philo_bonus.h
@@ -24,7 +24,8 @@ SRC=main_bonus.c \
 	child_management.c \
 	time.c \
 	print_bonus.c \
-	thread_bonus.c
+	thread_bonus.c \
+	data_management.c
 
 #OBJ___________________________
 
@@ -47,6 +48,8 @@ $(BUILD_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	@mkdir -p $@
 
+bonus: all
+
 clean:
 	@rm -rf $(BUILD_DIR)
 	@echo "clean bonus/ obj/"
@@ -56,6 +59,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
 
 -include $(DEPS)

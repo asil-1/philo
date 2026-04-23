@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 09:47:06 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/19 20:13:50 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:05:37 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	all_meal(t_ctx *ctx)
 {
-	if (ctx->n_meal == ctx->rules.nb_of_meal)
+	if (view_n_meals(ctx) == ctx->rules.nb_of_meal)
 		ctx->sem[MEAL]->__align++;
 	if (ctx->sem[MEAL]->__align == ctx->rules.nb_of_philo)
 	{
@@ -64,8 +64,8 @@ static void	philo_eat(t_ctx *ctx)
 	}
 	print_fork(ctx);
 	print_eat(ctx);
+	update_last_time_meal(ctx);
 	ft_usleep(ctx->rules.time_to_eat, ctx);
-	ctx->last_timeal = get_current_time();
 	sem_post(ctx->sem[FORK]);
 	sem_post(ctx->sem[FORK]);
 }

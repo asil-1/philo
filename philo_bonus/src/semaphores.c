@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 16:57:56 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/19 20:16:23 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:01:06 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	close_sem(t_ctx *ctx)
 	int	i;
 
 	i = 0;
-	while (i < NB_SEM - 1)
+	while (i < NB_SEM)
 	{
 		sem_close(ctx->sem[i]);
 		i++;
@@ -26,11 +26,13 @@ void	close_sem(t_ctx *ctx)
 
 void	unlink_all_sem(void)
 {
-	sem_unlink("parent");
-	sem_unlink("death");
+	sem_unlink("fork");
 	sem_unlink("meal");
 	sem_unlink("print");
-	sem_unlink("fork");
+	sem_unlink("death");
+	sem_unlink("n_meal");
+	sem_unlink("time_meal");
+	sem_unlink("death_flag");
 }
 
 int	open_sem(t_ctx *ctx)
@@ -38,13 +40,15 @@ int	open_sem(t_ctx *ctx)
 	int	i;
 
 	i = 0;
-	ctx->sem[parent] = sem_open("parent", O_CREAT | O_EXCL, 644, 0);
-	ctx->sem[DEATH] = sem_open("death", O_CREAT | O_EXCL, 644, 0);
-	ctx->sem[MEAL] = sem_open("meal", O_CREAT | O_EXCL, 644, 0);
-	ctx->sem[PRINT] = sem_open("print", O_CREAT | O_EXCL, 644, 1);
 	ctx->sem[FORK] = sem_open("fork", O_CREAT | O_EXCL, 644,
 			ctx->rules.nb_of_philo);
-	while (i < NB_SEM - 1)
+	ctx->sem[MEAL] = sem_open("meal", O_CREAT | O_EXCL, 644, 0);
+	ctx->sem[PRINT] = sem_open("print", O_CREAT | O_EXCL, 644, 1);
+	ctx->sem[DEATH] = sem_open("death", O_CREAT | O_EXCL, 644, 0);
+	ctx->sem[N_MEAL] = sem_open("n_meal", O_CREAT | O_EXCL, 644, 1);
+	ctx->sem[TIME_MEAL] = sem_open("time_meal", O_CREAT | O_EXCL, 644, 1);
+	ctx->sem[DEATH_FLAG] = sem_open("death_flag", O_CREAT | O_EXCL, 644, 1);
+	while (i < NB_SEM)
 	{
 		if (ctx->sem[i] == SEM_FAILED)
 		{

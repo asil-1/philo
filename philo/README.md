@@ -23,6 +23,8 @@ While they are eating, they are not thinking nor sleeping; while thinking, they 
 
 • Needless to say, philosophers should avoid dying!
 
+The aim of this exercise is to learn how to use threads and mutexes
+
 ## Instruction
 
 compile with `make`.

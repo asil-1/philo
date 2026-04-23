@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:01:24 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/19 20:25:47 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/21 14:10:58 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,6 @@ static int	create_child(t_ctx *ctx)
 		{
 			ctx->status = status;
 			ctx->id = i;
-			sem_unlink("death_flag");//il aime pas parce qu'il unlink ceux deja cree, ils ont le meme nom
-			sem_open("death_flag", O_CREAT | O_EXCL, 644, 1);
-			if (ctx->sem[DEATH_FLAG] == SEM_FAILED)
-			{
-				write(2, "Failed to open death_flag semaphore\n", 36);
-				exit (1);
-			}
 			routine(ctx);
 		}
 		if (ctx->pid < 0)
