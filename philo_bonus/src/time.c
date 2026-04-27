@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:52:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/23 13:22:24 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:15:59 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,15 @@ void	ft_usleep(size_t time, t_ctx *ctx)
 	t_start = get_current_time();
 	if (t_start < 0)
 	{
-		increase_death_flag(ctx);
+		increase_death_status(ctx);
 		return ;
 	}
 	while ((get_current_time() - t_start) < time)
+	{
+		if (view_death_status(ctx) > 0)
+			return ;
 		usleep(10);
+	}
 }
 
 size_t	the_time(t_ctx *ctx)

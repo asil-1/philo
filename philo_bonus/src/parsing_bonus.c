@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:52:15 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/07 16:59:14 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:10:05 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi(const char *nptr)
 	return (nb * sign);
 }
 
-int	parcing(char **argv)
+int	parsing(char **argv)
 {
 	int	i;
 	int	j;

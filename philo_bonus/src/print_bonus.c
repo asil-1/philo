@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 16:50:34 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/23 13:23:46 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:15:48 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_fork(t_ctx *ctx)
 	sem_wait(ctx->sem[PRINT]);
 	ctx->watch = the_time(ctx);
 	if (view_death_status(ctx) == 0)
-		printf("%s%zu %d has taken a fork %s\n",
+		printf("%s%zu %d has taken a fork%s\n",
 			HIGH_BLUE, ctx->watch, ctx->id, NC);
 	sem_post(ctx->sem[PRINT]);
 }
@@ -27,7 +27,7 @@ void	print_eat(t_ctx *ctx)
 	sem_wait(ctx->sem[PRINT]);
 	ctx->watch = the_time(ctx);
 	if (view_death_status(ctx) == 0)
-		printf("%s%zu %d is eating %s\n",
+		printf("%s%zu %d is eating%s\n",
 			BLUE, ctx->watch, ctx->id, NC);
 	sem_wait(ctx->sem[N_MEAL]);
 	ctx->n_meal++;
@@ -40,7 +40,7 @@ void	print_sleep(t_ctx *ctx)
 	sem_wait(ctx->sem[PRINT]);
 	ctx->watch = the_time(ctx);
 	if (view_death_status(ctx) == 0)
-		printf("%s%zu %d is sleeping %s\n",
+		printf("%s%zu %d is sleeping%s\n",
 			CYAN, ctx->watch, ctx->id, NC);
 	sem_post(ctx->sem[PRINT]);
 }
@@ -58,6 +58,6 @@ void	print_death(t_ctx *ctx)
 {
 	ctx->watch = the_time(ctx);
 	if (view_death_status(ctx) == 0)
-		printf("%s%zu %d died %s\n",
+		printf("%s%zu %d died%s\n",
 			DEATH_COLOR, ctx->watch, ctx->id, NC);
 }

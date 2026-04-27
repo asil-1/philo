@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 11:27:49 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/23 13:40:02 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 13:55:17 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	view_death_status(t_ctx *ctx)
 	int	status;
 
 	sem_wait(ctx->sem[DEATH_FLAG]);
-	status = ctx->death_flag;
+	status = ctx->sem[DEATH]->__align;
 	sem_post(ctx->sem[DEATH_FLAG]);
 	return (status);
 }
 
-void	increase_death_flag(t_ctx *ctx)
+void	increase_death_status(t_ctx *ctx)
 {
 	sem_wait(ctx->sem[DEATH_FLAG]);
-	ctx->death_flag++;
+	ctx->sem[DEATH]->__align++;
 	sem_post(ctx->sem[DEATH_FLAG]);
 }
 

@@ -6,22 +6,11 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 15:10:02 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/23 14:15:36 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:26:09 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bonus.h>
-
-static void	*view_all_process(void *arg)
-{
-	t_ctx	*ctx;
-
-	ctx = arg;
-	sem_wait(ctx->sem[DEATH]);
-	sem_post(ctx->sem[DEATH]);
-	increase_death_flag(ctx);
-	return (0);
-}
 
 static void	*view_me(void *arg)
 {
@@ -41,10 +30,8 @@ static void	*view_me(void *arg)
 		if (time_since_last_meal > deadtime)
 		{
 			sem_wait(ctx->sem[PRINT]);
-			sem_post(ctx->sem[DEATH]);
 			print_death(ctx);
-			increase_death_flag(ctx);
-			ft_usleep(1, ctx);
+			increase_death_status(ctx);
 			sem_post(ctx->sem[PRINT]);
 		}
 	}
@@ -54,20 +41,11 @@ static void	*view_me(void *arg)
 void	create_threads(t_ctx *ctx)
 {
 	ctx->last_timeal = get_current_time();
-	if (pthread_create(&ctx->thread_spy, NULL, view_all_process, ctx))
-	{
-		sem_wait(ctx->sem[PRINT]);
-		sem_post(ctx->sem[DEATH]);
-		increase_death_flag(ctx);
-		printf("create thread_spy failed\n");
-		sem_post(ctx->sem[PRINT]);
-		return ;
-	}
 	if (pthread_create(&ctx->thread_me, NULL, view_me, ctx))
 	{
 		sem_wait(ctx->sem[PRINT]);
 		sem_post(ctx->sem[DEATH]);
-		increase_death_flag(ctx);
+		increase_death_status(ctx);
 		printf("create thread_me failed\n");
 		sem_post(ctx->sem[PRINT]);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:51:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/23 11:28:07 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:25:56 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,19 @@ t_rules	init_rules(char **argv)
 		rules.flag_meal = 1;
 		rules.nb_of_meal = ft_atoi(argv[5]);
 	}
+	if (rules.time_to_die < 60 || rules.time_to_eat < 60
+		|| rules.time_to_sleep < 60)
+	{
+		print_error("Error to time");
+		rules.flag_meal = -1;
+	}
 	return (rules);
 }
 
 void	finish_process(t_ctx *ctx)
 {
+	usleep(1);
 	close_sem(ctx);
 	unlink_all_sem();
 	pthread_join(ctx->thread_me, NULL);
-	pthread_join(ctx->thread_spy, NULL);
 }

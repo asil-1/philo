@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/23 14:16:03 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:10:05 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ typedef struct s_ctx
 	t_rules		rules;
 }	t_ctx;
 
-//parcing_b.c
+//parsing_b.c
 int		ft_atoi(const char *nptr);
-int		parcing(char **argv);
+int		parsing(char **argv);
 
 //utils.c
 size_t	ft_strlen(char *s);
@@ -84,7 +84,7 @@ void	finish_process(t_ctx *ctx);
 //data_management.c
 int		view_n_meals(t_ctx *ctx);
 int		view_death_status(t_ctx *ctx);
-void	increase_death_flag(t_ctx *ctx);
+void	increase_death_status(t_ctx *ctx);
 size_t	view_last_time_meal(t_ctx *ctx);
 void	update_last_time_meal(t_ctx *ctx);
 

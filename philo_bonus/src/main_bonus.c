@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:41:54 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/10 17:55:11 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:12:46 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (1);
-	if (parcing(argv))
+	if (parsing(argv))
 		return (1);
 	memset(&ctx, 0, sizeof(t_ctx));
 	ctx.rules = init_rules(argv);
+	if (ctx.rules.flag_meal == -1)
+		return (0);
 	unlink_all_sem();
 	ctx.time_start = get_current_time();
 	if (open_sem(&ctx))

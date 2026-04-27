@@ -2,9 +2,10 @@
 
 ## Description
 
-The rules are the same. You must keep the philosophers alive. They must eat, think and sleep every day. To eat, they have as many forks as there are philosophers, but they cannot eat unless they are holding two forks. They must therefore pick them up and put them down before and after eating.
+You must keep the philosophers alive. They must eat, think and sleep every day. To eat, they have as many forks as there are philosophers, but they cannot eat unless they are holding two forks. They must therefore pick them up and put them down before and after eating.
 
-The difference is that each thread is a process and we use semaphores. I also use threads within each thread to check the alive or dead status of each one.
+I use one thread for each processes to check the death.
+This time I will use semaphores instead of mutex.
 
 ## Instruction
 
