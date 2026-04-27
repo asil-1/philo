@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 12:02:00 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 15:03:51 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:37:25 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@ void	philo_even_eat(t_philo *philo)
 
 void	philo_odd_eat(t_philo *philo)
 {
-	if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
-		return ;
 	print_think(philo);
 	ft_usleep(10, philo);
-	if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
-		return ;
 	pthread_mutex_lock(&philo->ctx->fork[philo->id - 1]);
 	if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
 	{
