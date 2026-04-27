@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 15:29:46 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:03:59 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ typedef struct s_philo
 	t_ctx		*ctx;
 }	t_philo;
 
-//parcing.c
+//parsing.c
 int		ft_atoi(const char *nptr);
-int		parcing(char **argv);
+int		parsing(char **argv);
 
 //muthread.c
 int		create_thread(t_philo **philo, t_ctx *ctx, int nb_philo);
@@ -94,7 +94,7 @@ void	print_death(t_philo *philo);
 size_t	get_current_time(void);
 int		is_dead(t_philo *philo);
 void	the_time(t_philo *philo);
-void	ft_usleep(size_t time, t_ctx *ctx);
+void	ft_usleep(size_t time, t_philo *philo);
 
 //eat.c
 void	philo_odd_eat(t_philo *philo);

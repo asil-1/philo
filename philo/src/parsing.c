@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcing.c                                          :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 10:54:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 15:39:26 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:57:42 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi(const char *nptr)
 	return (nb * sign);
 }
 
-int	parcing(char **argv)
+int	parsing(char **argv)
 {
 	int	i;
 	int	j;
@@ -57,9 +57,9 @@ int	parcing(char **argv)
 		}
 		i++;
 	}
-	if (ft_atoi(argv[1]) > INT_MAX)
+	if (ft_atoi(argv[1]) > INT_MAX || ft_atoi(argv[1]) < 1)
 	{
-		print_error("too many philosophers");
+		print_error("Error number of philosophers");
 		return (1);
 	}
 	return (0);

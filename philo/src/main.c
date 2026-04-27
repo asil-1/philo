@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:32:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 11:30:23 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:56:50 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (1);
-	if (parcing(argv))
+	if (parsing(argv))
 		return (1);
 	memset(&ctx, 0, sizeof(t_ctx));
 	ctx.rules = init_rules(argv);
+	if (ctx.rules.flag_meal == -1)
+		return (0);
 	philo = NULL;
 	ctx.time_start = get_current_time();
 	if (create_mutex(&ctx, ctx.rules.nb_of_philo) > 0)

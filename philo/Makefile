@@ -21,7 +21,7 @@ SRC=main.c \
 	philo_life.c \
 	print.c \
 	utils.c \
-	parcing.c \
+	parsing.c \
 	time.c \
 	eat.c
 
