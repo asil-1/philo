@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 09:47:06 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 14:40:29 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:27:37 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	all_meal(t_ctx *ctx)
 		ctx->sem[MEAL]->__align++;
 	if (ctx->sem[MEAL]->__align == ctx->rules.nb_of_philo)
 	{
-		ctx->sem[DEATH]->__align++;
+		increase_death_status(ctx);
 		return (1);
 	}
 	return (0);

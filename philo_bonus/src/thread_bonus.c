@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 15:10:02 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 15:26:09 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:31:23 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	create_threads(t_ctx *ctx)
 	if (pthread_create(&ctx->thread_me, NULL, view_me, ctx))
 	{
 		sem_wait(ctx->sem[PRINT]);
-		sem_post(ctx->sem[DEATH]);
 		increase_death_status(ctx);
 		printf("create thread_me failed\n");
 		sem_post(ctx->sem[PRINT]);
