@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 15:03:59 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 18:13:45 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # define INT_MAX 2147483647
 
 //colors
-# define DEATH_COLOR "\e[40;1;31m"
-# define BROWN "\e[33m"
-# define YELLOW "\e[93m"
-# define BLUE "\e[94m"
-# define CYAN "\e[96m"
+# define DEATH_COLOR "\e[38;5;162m"
+# define LIGHT_YELLOW "\e[38;5;230m"
+# define YELLOW "\e[38;5;222m"
+# define DARK_BLUE "\e[38;5;105m"
+# define BLUE "\e[38;5;153m"
 # define NO_COLOR "\e[0m"
 
 # include <unistd.h>
