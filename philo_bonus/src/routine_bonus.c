@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 09:47:06 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 17:27:37 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:08:32 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static int	all_meal(t_ctx *ctx)
 	if (ctx->sem[MEAL]->__align == ctx->rules.nb_of_philo)
 	{
 		increase_death_status(ctx);
+		sem_wait(ctx->sem[PRINT]);
+		printf("Everyone has eaten!\n");
+		sem_post(ctx->sem[PRINT]);
 		return (1);
 	}
 	return (0);

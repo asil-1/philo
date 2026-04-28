@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:32:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 14:56:50 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:16:02 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ int	main(int argc, char **argv)
 	if (create_thread(&philo, &ctx, ctx.rules.nb_of_philo) == 0)
 		wait_thread(philo, ctx.rules.nb_of_philo);
 	destroy_mutex(&ctx, ctx.rules.nb_of_philo);
+	if (ctx.meals >= ctx.rules.nb_of_philo)
+		printf("Wow! Everyone’s eaten!\n");
 	return (0);
 }
