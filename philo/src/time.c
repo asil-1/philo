@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:02:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 15:04:35 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/28 15:47:49 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_usleep(size_t time, t_philo *philo)
 	}
 	while ((get_current_time() - t_start) < time)
 	{
-		if (is_dead(philo) > 0)
+		if (is_dead(philo) > 0 || someone_dead(philo->ctx) > 0)
 			return ;
 		usleep(10);
 	}
