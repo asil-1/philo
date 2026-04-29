@@ -1,29 +1,18 @@
 *This project has been created as part of the 42 curriculum by ldepenne*
 
-## Description
+## Technology
 
-Here are the key things you need to know to succeed in this assignment:
+The aim of this project is to learn how to use threads and mutexes.
 
-• One or more philosophers sit at a round table. There is a large bowl of spaghetti in the middle of the table.
+Threads exist within a single parent process; they enable programming to be approached not sequentially, but concurrently.
 
-• The philosophers take turns eating, thinking, and sleeping.
-While they are eating, they are not thinking nor sleeping; while thinking, they are not eating nor sleeping; and, of course, while sleeping, they are not eating nor thinking.
+Mutexes are used to ‘control’ these threads using the principle of mutual exclusion. They function like locks that grant access to data only if it is not already in use.
 
-• There are also forks on the table. There are as many forks as philosophers.
+## Project Description
 
-• Since eating spaghetti with just one fork is impractical, a philosopher must pick up both the fork to their right and the fork to their left before eating.
+To do this, we have several philosophers represented by threads (one philosopher = one thread). They must eat, sleep and think during the day. The duration of each action (or thinking) must be entered as a parameter when the programme is launched* (see [instructions](#instruction)).
 
-• When a philosopher has finished eating, they put their forks back on the table and start sleeping. Once awake, they start thinking again. The simulation stops when a philosopher dies of starvation.
-
-• Every philosopher needs to eat and should never starve.
-
-• Philosophers do not communicate with each other.
-
-• Philosophers do not know if another philosopher is about to die.
-
-• Needless to say, philosophers should avoid dying!
-
-The aim of this exercise is to learn how to use threads and mutexes
+However, to eat, a philosopher needs two forks but only has one. They must share their fork with their neighbour on the right or left. The forks are therefore represented by mutexes.
 
 ## Instruction
 
@@ -31,8 +20,9 @@ compile with `make`.
 
 The programme requires several arguments:
 
-`./philo nb_of_philo time_to_die time_to_eat
-time_to_sleep nb_of_meal`
+```bash
+./philo nb_of_philo time_to_die time_to_eat time_to_sleep nb_of_meal
+```
 
 ◦ nb_of_philo: The number of philosophers and also the number of forks.
 
@@ -49,6 +39,8 @@ warning: the specific topic that the examiner must not test more than 200 philos
 
 ## Ressource
 
-thread and data race: https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/#une-situation-de-comp%C3%A9tition--le-data-race
+- [subject](https://cdn.intra.42.fr/pdf/pdf/198989/en.subject.pdf)
 
-understanding of the subject: https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2
+- [understanding of the subject](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)
+
+- [thread and data race](https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/#une-situation-de-comp%C3%A9tition--le-data-race)

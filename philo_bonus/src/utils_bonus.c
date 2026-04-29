@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:51:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 15:25:56 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:13:02 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,25 @@ t_rules	init_rules(char **argv)
 void	finish_process(t_ctx *ctx)
 {
 	usleep(1);
-	close_sem(ctx);
 	unlink_all_sem();
-	pthread_join(ctx->thread_me, NULL);
+	close_sem(ctx);
+	// pthread_join(ctx->thread_me, NULL);
+}
+
+void	view_me(t_ctx *ctx)
+{
+	size_t	time_since_last_meal;
+
+	if (view_n_meals(ctx) > 0)
+		time_since_last_meal = get_current_time()
+			- view_last_time_meal(ctx);
+	else
+		time_since_last_meal = get_current_time() - ctx->time_start;
+	if (time_since_last_meal > (size_t)ctx->rules.time_to_die)
+	{
+		sem_wait(ctx->sem[PRINT]);
+		print_death(ctx);
+		increase_death_status(ctx);
+		sem_post(ctx->sem[PRINT]);
+	}
 }

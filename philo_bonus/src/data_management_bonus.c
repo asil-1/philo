@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_management.c                                  :+:      :+:    :+:   */
+/*   data_management_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 11:27:49 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 13:55:17 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:03:28 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	view_death_status(t_ctx *ctx)
 void	increase_death_status(t_ctx *ctx)
 {
 	sem_wait(ctx->sem[DEATH_FLAG]);
-	ctx->sem[DEATH]->__align++;
+	sem_post(ctx->sem[DEATH]);
 	sem_post(ctx->sem[DEATH_FLAG]);
 }
 
@@ -50,8 +50,8 @@ size_t	view_last_time_meal(t_ctx *ctx)
 {
 	size_t	last_time;
 
-	sem_wait(ctx->sem[TIME_MEAL]);
+	// sem_wait(ctx->sem[TIME_MEAL]);
 	last_time = ctx->last_timeal;
-	sem_post(ctx->sem[TIME_MEAL]);
+	// sem_post(ctx->sem[TIME_MEAL]);
 	return (last_time);
 }

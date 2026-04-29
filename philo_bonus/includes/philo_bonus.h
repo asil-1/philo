@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 15:10:05 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:51:10 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ typedef struct s_ctx
 	size_t		watch;
 	int			n_meal;
 	int			death_flag;
-	pthread_t	thread_spy;
 	pthread_t	thread_me;
+	pthread_t	thread_spy;
+	int			t_me_create;
+	int			t_spy_create;
 	t_rules		rules;
 }	t_ctx;
 
@@ -80,6 +82,7 @@ size_t	ft_strlen(char *s);
 void	print_error(char *msg);
 t_rules	init_rules(char **argv);
 void	finish_process(t_ctx *ctx);
+void	view_me(t_ctx *ctx);
 
 //data_management.c
 int		view_n_meals(t_ctx *ctx);
@@ -103,9 +106,6 @@ int		child_management(t_ctx *ctx);
 size_t	the_time(t_ctx *ctx);
 size_t	get_current_time(void);
 void	ft_usleep(size_t time, t_ctx *ctx);
-
-//thread_bonus.c
-void	create_threads(t_ctx *ctx);
 
 //print_bonus.c
 void	print_eat(t_ctx *ctx);

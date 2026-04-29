@@ -1,6 +1,6 @@
 #COMPILE_______________________
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
 MAKEFLAGS += --no-print-directory
 
 HEADER = philo_bonus.h
@@ -24,7 +24,6 @@ SRC=main_bonus.c \
 	child_management_bonus.c \
 	time_bonus.c \
 	print_bonus.c \
-	thread_bonus.c \
 	data_management_bonus.c
 
 #OBJ___________________________

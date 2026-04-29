@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
+/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 09:47:06 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/28 16:08:32 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/29 15:20:36 by mbirou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	all_meal(t_ctx *ctx)
 {
 	if (view_n_meals(ctx) == ctx->rules.nb_of_meal)
-		ctx->sem[MEAL]->__align++;
+		sem_post(ctx->sem[MEAL]);
 	if (ctx->sem[MEAL]->__align == ctx->rules.nb_of_philo)
 	{
 		increase_death_status(ctx);
@@ -50,7 +50,7 @@ static void	philo_eat(t_ctx *ctx)
 	if (!(ctx->id % 2))
 	{
 		print_think(ctx);
-		ft_usleep(10, ctx);
+		// ft_usleep(10, ctx);
 		if (view_death_status(ctx) > 0)
 			return ;
 	}
@@ -75,6 +75,7 @@ static void	philo_eat(t_ctx *ctx)
 
 static void	philo_sleep(t_ctx *ctx)
 {
+	view_me(ctx);
 	print_sleep(ctx);
 	ft_usleep(ctx->rules.time_to_sleep, ctx);
 	if (view_death_status(ctx) > 0)
@@ -82,7 +83,7 @@ static void	philo_sleep(t_ctx *ctx)
 	if (ctx->id % 2)
 	{
 		print_think(ctx);
-		ft_usleep(10, ctx);
+		// ft_usleep(10, ctx);
 	}
 }
 
@@ -95,17 +96,14 @@ void	routine(t_ctx *ctx)
 		unlink_all_sem();
 		exit (0);
 	}
-	create_threads(ctx);
+	ctx->last_timeal = get_current_time();
 	while (view_death_status(ctx) < 1)
 	{
-		if (ctx->rules.flag_meal == 1)
-		{
-			if (all_meal(ctx) == 1)
-			{
-				finish_process(ctx);
-				exit (0);
-			}
-		}
+		if (ctx->rules.flag_meal == 1 && all_meal(ctx) == 1)
+			break ;
+		view_me(ctx);
+		if (view_death_status(ctx) > 0)
+			break ;
 		philo_eat(ctx);
 		if (view_death_status(ctx) > 0)
 			break ;
