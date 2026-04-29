@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 10:54:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 14:57:42 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/29 20:00:44 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	parsing(char **argv)
 		}
 		i++;
 	}
-	if (ft_atoi(argv[1]) > INT_MAX || ft_atoi(argv[1]) < 1)
+	if (ft_atoi(argv[1]) < 1)
 	{
 		print_error("Error number of philosophers");
 		return (1);
