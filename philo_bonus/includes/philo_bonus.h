@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/29 14:51:10 by mbirou           ###   ########.fr       */
+/*   Updated: 2026/04/30 20:01:52 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	view_me(t_ctx *ctx);
 int		view_n_meals(t_ctx *ctx);
 int		view_death_status(t_ctx *ctx);
 void	increase_death_status(t_ctx *ctx);
-size_t	view_last_time_meal(t_ctx *ctx);
 void	update_last_time_meal(t_ctx *ctx);
 
 //semaphores.c

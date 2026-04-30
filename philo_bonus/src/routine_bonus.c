@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 09:47:06 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/29 15:20:36 by mbirou           ###   ########.fr       */
+/*   Updated: 2026/04/30 22:39:25 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,11 @@ static void	philo_eat(t_ctx *ctx)
 	if (!(ctx->id % 2))
 	{
 		print_think(ctx);
-		// ft_usleep(10, ctx);
+		ft_usleep(10, ctx);
 		if (view_death_status(ctx) > 0)
 			return ;
 	}
 	sem_wait(ctx->sem[FORK]);
-	if (view_death_status(ctx) > 0)
-		return ;
-	print_fork(ctx);
 	sem_wait(ctx->sem[FORK]);
 	if (view_death_status(ctx) > 0)
 	{
@@ -65,6 +62,7 @@ static void	philo_eat(t_ctx *ctx)
 		sem_post(ctx->sem[FORK]);
 		return ;
 	}
+	print_fork(ctx);
 	print_fork(ctx);
 	print_eat(ctx);
 	update_last_time_meal(ctx);
@@ -81,10 +79,7 @@ static void	philo_sleep(t_ctx *ctx)
 	if (view_death_status(ctx) > 0)
 		return ;
 	if (ctx->id % 2)
-	{
 		print_think(ctx);
-		// ft_usleep(10, ctx);
-	}
 }
 
 void	routine(t_ctx *ctx)

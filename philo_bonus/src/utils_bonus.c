@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:51:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/30 18:23:20 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/30 20:01:36 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	finish_process(t_ctx *ctx)
 	usleep(1);
 	unlink_all_sem();
 	close_sem(ctx);
-	// pthread_join(ctx->thread_me, NULL);
 }
 
 void	view_me(t_ctx *ctx)
@@ -59,7 +58,7 @@ void	view_me(t_ctx *ctx)
 
 	if (view_n_meals(ctx) > 0)
 		time_since_last_meal = get_current_time()
-			- view_last_time_meal(ctx);
+			- ctx->last_timeal;
 	else
 		time_since_last_meal = get_current_time() - ctx->time_start;
 	if (time_since_last_meal > (size_t)ctx->rules.time_to_die)
