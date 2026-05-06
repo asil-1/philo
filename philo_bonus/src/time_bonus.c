@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   time_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:52:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 15:15:59 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 11:46:46 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	get_current_time(void)
 	if (gettimeofday(&time, NULL) < 0)
 	{
 		print_error("gettimeofday failed");
-		return (-1);
+		return (0);
 	}
 	current_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (current_time);

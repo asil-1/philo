@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 11:02:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/05/05 16:45:21 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 11:32:22 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	get_current_time(void)
 	if (gettimeofday(&time, NULL) < 0)
 	{
 		print_error("gettimeofday failed");
-		return (-1);
+		return (0);
 	}
 	current_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (current_time);
