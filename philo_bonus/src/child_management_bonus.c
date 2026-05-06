@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_management_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:01:24 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/29 14:23:26 by mbirou           ###   ########.fr       */
+/*   Updated: 2026/05/05 14:16:25 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_bonus.c                                    :+:      :+:    :+:   */
+/*   parcing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:52:15 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/30 18:23:46 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:10:05 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	parsing(char **argv)
 		}
 		i++;
 	}
-	if (ft_atoi(argv[1]) < 1)
+	if (ft_atoi(argv[1]) > INT_MAX)
 	{
-		print_error("Error to time philosophers");
+		print_error("too many philosophers");
 		return (1);
 	}
 	return (0);

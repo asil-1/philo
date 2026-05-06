@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 11:27:49 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/30 20:01:48 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/04/29 11:41:14 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ void	update_last_time_meal(t_ctx *ctx)
 	sem_wait(ctx->sem[TIME_MEAL]);
 	ctx->last_timeal = get_current_time();
 	sem_post(ctx->sem[TIME_MEAL]);
+}
+
+size_t	view_last_time_meal(t_ctx *ctx)
+{
+	size_t	last_time;
+
+	sem_wait(ctx->sem[TIME_MEAL]);
+	last_time = ctx->last_timeal;
+	sem_post(ctx->sem[TIME_MEAL]);
+	return (last_time);
 }

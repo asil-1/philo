@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:51:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/30 20:01:36 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/05 14:25:09 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,17 @@ t_rules	init_rules(char **argv)
 		rules.flag_meal = 1;
 		rules.nb_of_meal = ft_atoi(argv[5]);
 	}
+	if (rules.time_to_die < 60 || rules.time_to_eat < 60
+		|| rules.time_to_sleep < 60)
+	{
+		print_error("Error to time");
+		rules.flag_meal = -1;
+	}
 	return (rules);
 }
 
 void	finish_process(t_ctx *ctx)
 {
-	usleep(1);
-	unlink_all_sem();
+	pthread_join(ctx->thread_me, NULL);
 	close_sem(ctx);
-}
-
-void	view_me(t_ctx *ctx)
-{
-	size_t	time_since_last_meal;
-
-	if (view_n_meals(ctx) > 0)
-		time_since_last_meal = get_current_time()
-			- ctx->last_timeal;
-	else
-		time_since_last_meal = get_current_time() - ctx->time_start;
-	if (time_since_last_meal > (size_t)ctx->rules.time_to_die)
-	{
-		sem_wait(ctx->sem[PRINT]);
-		print_death(ctx);
-		increase_death_status(ctx);
-		sem_post(ctx->sem[PRINT]);
-	}
 }

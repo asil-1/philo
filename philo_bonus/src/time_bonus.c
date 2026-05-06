@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_bonus.c                                       :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbirou <mbirou@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:52:45 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/29 14:50:33 by mbirou           ###   ########.fr       */
+/*   Updated: 2026/04/27 15:15:59 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_usleep(size_t time, t_ctx *ctx)
 	}
 	while ((get_current_time() - t_start) < time)
 	{
-		view_me(ctx);
 		if (view_death_status(ctx) > 0)
 			return ;
 		usleep(10);

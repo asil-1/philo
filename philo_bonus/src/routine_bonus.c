@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 09:47:06 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/30 22:39:25 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 11:16:09 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,15 @@ static void	philo_eat(t_ctx *ctx)
 
 static void	philo_sleep(t_ctx *ctx)
 {
-	view_me(ctx);
 	print_sleep(ctx);
 	ft_usleep(ctx->rules.time_to_sleep, ctx);
 	if (view_death_status(ctx) > 0)
 		return ;
 	if (ctx->id % 2)
+	{
 		print_think(ctx);
+		ft_usleep(10, ctx);
+	}
 }
 
 void	routine(t_ctx *ctx)
@@ -91,14 +93,17 @@ void	routine(t_ctx *ctx)
 		unlink_all_sem();
 		exit (0);
 	}
-	ctx->last_timeal = get_current_time();
+	create_threads(ctx);
 	while (view_death_status(ctx) < 1)
 	{
-		if (ctx->rules.flag_meal == 1 && all_meal(ctx) == 1)
-			break ;
-		view_me(ctx);
-		if (view_death_status(ctx) > 0)
-			break ;
+		if (ctx->rules.flag_meal == 1)
+		{
+			if (all_meal(ctx) == 1)
+			{
+				finish_process(ctx);
+				exit (0);
+			}
+		}
 		philo_eat(ctx);
 		if (view_death_status(ctx) > 0)
 			break ;

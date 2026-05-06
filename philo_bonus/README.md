@@ -1,18 +1,11 @@
 *This project has been created as part of the 42 curriculum by ldepenne*
 
-## Technology
+## Description
 
-The aim of this project is to learn how to use semaphores and to review the concurrent execution of different processes.
+You must keep the philosophers alive. They must eat, think and sleep every day. To eat, they have as many forks as there are philosophers, but they cannot eat unless they are holding two forks. They must therefore pick them up and put them down before and after eating.
 
-Semaphores are data structures containing an integer that we can manipulate using various functions. They are used to synchronise processes or threads. We can think of them as green or red traffic lights, granting or denying access to data depending on available resources.
-
-## Project Description
-
-We have several philosophers represented by processes (one philosopher = one process). They must eat, sleep and think during the day. The duration of each action (or thinking) must be entered as a parameter when the programme is launched* (see [instructions](#instruction)).
-
-However, to eat, a philosopher needs two forks but only has one.
-All forks are placed in the centre of the table and managed by a semaphore.
-
+I use one thread for each processes to check the death.
+This time I will use semaphores instead of mutex.
 
 ## Instruction
 
@@ -20,9 +13,8 @@ compile with `make`.
 
 The programme requires several arguments:
 
-```bash
-./philo_bonus nb_of_philo time_to_die time_to_eat time_to_sleep nb_of_meal
-```
+`./philo_bonus nb_of_philo time_to_die time_to_eat
+time_to_sleep nb_of_meal`
 
 ◦ nb_of_philo: The number of philosophers and also the number of forks.
 
@@ -38,7 +30,5 @@ If not specified, the simulation stops when a philosopher dies.
 warning: the specific topic that the examiner must not test more than 200 philosophy.
 
 ## Ressource
-
-- [subject](https://cdn.intra.42.fr/pdf/pdf/198989/en.subject.pdf)
 
 Use of the manuals. And use of AI to supplement the information in the manuals for the sem_open(), sem_close() and sem_unlink() functions, with an example

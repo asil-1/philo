@@ -24,6 +24,7 @@ SRC=main_bonus.c \
 	child_management_bonus.c \
 	time_bonus.c \
 	print_bonus.c \
+	thread_bonus.c \
 	data_management_bonus.c
 
 #OBJ___________________________
