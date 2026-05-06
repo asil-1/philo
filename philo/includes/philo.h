@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/05/06 10:35:47 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 13:54:45 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_philo
 }	t_philo;
 
 //parsing.c
-int		ft_atoi(const char *nptr);
+long	ft_atol(const char *nptr);
 int		parsing(char **argv);
 
 //muthread.c

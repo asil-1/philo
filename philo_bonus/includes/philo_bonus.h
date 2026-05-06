@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/05/06 11:09:23 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:04:22 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_ctx
 }	t_ctx;
 
 //parsing_b.c
-int		ft_atoi(const char *nptr);
+long	ft_atol(const char *nptr);
 int		parsing(char **argv);
 
 //utils.c

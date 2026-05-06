@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcing_bonus.c                                    :+:      :+:    :+:   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:52:15 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 15:10:05 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 14:08:58 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo_bonus.h>
 
-int	ft_atoi(const char *nptr)
+long	ft_atol(const char *nptr)
 {
-	int	sign;
-	int	nb;
+	long	sign;
+	long	nb;
 
 	if (!nptr)
 		return (0);
@@ -37,29 +37,42 @@ int	ft_atoi(const char *nptr)
 	return (nb * sign);
 }
 
+static int	isnum(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (!(arg[i] >= '0' && arg[i] <= '9'))
+		{
+			print_error("invalid argument");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	parsing(char **argv)
 {
 	int	i;
-	int	j;
 
 	i = 1;
 	while (argv[i])
 	{
-		j = 0;
-		while (argv[i][j])
+		if (ft_atol(argv[i]) > INT_MAX)
 		{
-			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
-			{
-				print_error("invalid argument");
-				return (1);
-			}
-			j++;
+			print_error("a number is too large");
+			return (1);
 		}
+		if (isnum(argv[i]) == 1)
+			return (1);
 		i++;
 	}
-	if (ft_atoi(argv[1]) > INT_MAX)
+	if (ft_atol(argv[1]) < 1)
 	{
-		print_error("too many philosophers");
+		print_error("not enough philosophers");
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 10:54:05 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/29 20:00:56 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 13:54:21 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ t_rules	init_rules(char **argv)
 	t_rules	rules;
 
 	rules.flag_meal = 0;
-	rules.nb_of_philo = ft_atoi(argv[1]);
-	rules.time_to_die = ft_atoi(argv[2]);
-	rules.time_to_eat = ft_atoi(argv[3]);
-	rules.time_to_sleep = ft_atoi(argv[4]);
+	rules.nb_of_philo = ft_atol(argv[1]);
+	rules.time_to_die = ft_atol(argv[2]);
+	rules.time_to_eat = ft_atol(argv[3]);
+	rules.time_to_sleep = ft_atol(argv[4]);
 	if (argv[5])
 	{
 		rules.flag_meal = 1;
-		rules.nb_of_meal = ft_atoi(argv[5]);
+		rules.nb_of_meal = ft_atol(argv[5]);
 	}
 	return (rules);
 }
