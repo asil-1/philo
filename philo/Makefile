@@ -1,6 +1,6 @@
 #COMPILE_______________________
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
 MAKEFLAGS += --no-print-directory
 
 HEADER = philo.h

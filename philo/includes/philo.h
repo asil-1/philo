@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 09:30:36 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/27 18:13:45 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 10:35:47 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_ctx
 	int				flag_death;
 	int				fprint_death;
 	int				meals;
+	pthread_mutex_t	lock;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	m_fdead;
 	pthread_mutex_t	m_print;
@@ -59,6 +60,8 @@ typedef struct s_philo
 	size_t		watch;
 	int			id;
 	int			n_meal;
+	int			first_fork;
+	int			second_fork;
 	size_t		last_timeal;
 	t_ctx		*ctx;
 }	t_philo;

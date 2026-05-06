@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 15:27:33 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/03/27 15:39:26 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 10:36:56 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	simple_mutex(t_ctx *ctx)
 		return (1);
 	if (pthread_mutex_init(&ctx->m_meals, NULL) != 0)
 		return (1);
+	if (pthread_mutex_init(&ctx->lock, NULL) != 0)
+		return (1);
 	return (0);
 }
 
@@ -29,7 +31,7 @@ int	create_mutex(t_ctx *ctx, int nb_philo)
 
 	if (simple_mutex(ctx) > 0)
 	{
-		print_error("Create print mutex failed");
+		print_error("Create mutex failed");
 		return (1);
 	}
 	ctx->fork = malloc(sizeof(pthread_mutex_t) * nb_philo);
@@ -60,6 +62,7 @@ void	destroy_mutex(t_ctx *ctx, int nb_of_philo)
 	pthread_mutex_destroy(&ctx->m_print);
 	pthread_mutex_destroy(&ctx->m_fdead);
 	pthread_mutex_destroy(&ctx->m_meals);
+	pthread_mutex_destroy(&ctx->lock);
 	while (i < nb_of_philo)
 	{
 		pthread_mutex_destroy(&ctx->fork[i]);

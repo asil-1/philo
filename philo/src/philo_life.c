@@ -6,13 +6,13 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 15:49:13 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/28 15:47:27 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 10:28:47 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philo.h>
 
-void	philo_eat(t_philo *philo)
+static void	philo_eat(t_philo *philo)
 {
 	if (!(philo->id % 2))
 		philo_even_eat(philo);
@@ -20,7 +20,7 @@ void	philo_eat(t_philo *philo)
 		philo_odd_eat(philo);
 }
 
-void	philo_sleep(t_philo *philo)
+static void	philo_sleep(t_philo *philo)
 {
 	if (someone_dead(philo->ctx) > 0)
 		return ;
@@ -51,9 +51,9 @@ void	*routine(void *arg)
 		}
 		philo_eat(philo);
 		philo_sleep(philo);
+		is_dead(philo);
 		if (someone_dead(philo->ctx) > 0)
 			return (NULL);
-		is_dead(philo);
 	}
 	return (arg);
 }

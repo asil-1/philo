@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 12:02:00 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/04/28 15:46:33 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/06 10:55:32 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ void	philo_even_eat(t_philo *philo)
 	left_fork = philo->id - 1;
 	if (philo->id == 0)
 		left_fork = philo->ctx->rules.nb_of_philo - 1;
-	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
-	if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
+	while (42)
 	{
-		pthread_mutex_unlock(&philo->ctx->fork[philo->id]);
-		return ;
+		if (philo->ctx->fork[philo->id].__data.__lock == 0)
+			break ;
+		if (is_dead(philo) == 1 || someone_dead(philo->ctx) >= 1)
+			return ;
 	}
+	pthread_mutex_lock(&philo->ctx->fork[philo->id]);
 	print_fork(philo);
 	pthread_mutex_lock(&philo->ctx->fork[left_fork]);
 	if (is_dead(philo) == 0 || someone_dead(philo->ctx) == 0)
