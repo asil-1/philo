@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 10:01:24 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/05/05 14:16:25 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/07 10:59:08 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 static int	create_child(t_ctx *ctx)
 {
 	int	i;
-	int	status;
 
 	i = 0;
-	status = 0;
 	while (i < ctx->rules.nb_of_philo)
 	{
 		ctx->pid = fork();
 		if (ctx->pid == 0)
 		{
-			ctx->status = status;
+			ctx->status_pid = 0;
 			ctx->id = i;
 			routine(ctx);
 		}
@@ -45,7 +43,7 @@ static void	wait_child(t_ctx *ctx)
 	i = 0;
 	while (i < ctx->rules.nb_of_philo)
 	{
-		waitpid(-1, &ctx->status, 0);
+		waitpid(-1, &ctx->status_pid, 0);
 		i++;
 	}
 }

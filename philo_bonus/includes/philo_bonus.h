@@ -6,7 +6,7 @@
 /*   By: ldepenne <ldepenne@student.42angouleme.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 15:46:27 by ldepenne          #+#    #+#             */
-/*   Updated: 2026/05/06 14:04:22 by ldepenne         ###   ########.fr       */
+/*   Updated: 2026/05/07 10:58:56 by ldepenne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_ctx
 	sem_t		*sem[NB_SEM];
 	int			id;
 	pid_t		pid;
-	int			status;
+	int			status_pid;
 	size_t		time_start;
 	size_t		last_timeal;
 	size_t		watch;
