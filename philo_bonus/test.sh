@@ -1,12 +1,8 @@
 #!/bin/bash
 
-if [[ -z $1 ]]; then
-	printf "usage ./test.sh <philo bin>\n"
-	exit 1
-fi
-PHILO_BIN=./$1
-PHILO_BIN_HELGRIND="valgrind --tool=helgrind --history-level=approx $PHILO_BIN"
-PHILO_BIN_VALGRIND="valgrind $PHILO_BIN"
+PHILO_BIN_HELGRIND="valgrind --tool=helgrind --history-level=approx ./philo_bonus"
+PHILO_BIN_VALGRIND="valgrind ./philo_bonus"
+PHILO_BIN=./philo_bonus
 TIME_OUT=10s
 TIME_OUT_ERROR_CODE=124
 
